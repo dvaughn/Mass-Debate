@@ -1,4 +1,14 @@
 MassDebate::Application.routes.draw do
+  get "users/index"
+
+  get "users/register"
+
+  get "users/login"
+
+  get "users/logout"
+
+  get "users/home"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
