@@ -13,9 +13,15 @@ class UsersController < ApplicationController
     email = params[:user][:email]
     pw = params[:user][:password]
     pw_confirm = params[:user][:password_confirmation]
+    debateName = params[:user][:debateName]
+    firstName = params[:user][:firstName]
+    lastName = params[:user][:lastName]
+    age = params[:user][:age]
+    gender = params[:user][:gender]
 
     #user instance we are trying to register
-    @user = User.new(:debateName => debatename, :email => email, :password => pw, :password_confirmation => pw_confirm)
+    @user = User.new(:debateName => debatename, :email => email, :password => pw, :password_confirmation => pw_confirm, :debateName => debateName, :firstName => firstName, :lastName => lastName,
+                     :age => age, :gender => gender)
 
     #Does the new user pass validations?
     if @user.valid?
@@ -39,11 +45,11 @@ class UsersController < ApplicationController
   #          validation errors
   def login
     #Variable setting
-    username = params[:user][:username]
+    email = params[:user][:email]
     pw = params[:user][:password]
 
     #user instance we are trying to validate
-    @user = User.find_by_username(username)
+    @user = User.find_by_email(email)
 
     #Does the current user exist?
     if @user
@@ -59,7 +65,7 @@ class UsersController < ApplicationController
       end
 
     else
-      flash[:login_error] = "The username you specified is already in use"
+      flash[:login_error] = "The username you specified does not exist"
       @user = User.new
       render :index
     end
@@ -71,8 +77,6 @@ class UsersController < ApplicationController
   # Effects: Clears the session data and redirects to the index page
   def logout
     session[:user_id] = nil
-    session[:site_id] = nil
-    session[:page_id] = nil
     @user = User.new
     render :index
   end
@@ -83,10 +87,6 @@ class UsersController < ApplicationController
   # Effects: displays the user's sites through @sites
   def home
     uid = session[:user_id]
-    session[:site_id] = nil
-    session[:page_id] = nil
-    user = User.find(uid)
-    @sites = user.sites
-    @site = Site.new
+    @user = User.find(uid)
   end
 end
