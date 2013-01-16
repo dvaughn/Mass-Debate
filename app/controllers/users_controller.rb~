@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     pw_confirm = params[:user][:password_confirmation]
 
     #user instance we are trying to register
-    @user = User.new(:debateName => debatename, :email => email, :password => pw, :password_confirmation => pw_confirm)
+    @user = User.new(:username => username, :password => pw, :password_confirmation => pw_confirm)
 
     #Does the new user pass validations?
     if @user.valid?
