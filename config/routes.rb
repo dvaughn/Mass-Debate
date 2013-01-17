@@ -3,7 +3,8 @@ MassDebate::Application.routes.draw do
   match "/" => "users#index"
   match "/home" => "users#home"
   match "/register" => "users#register"
-
+  match "/logout" => "users#logout"
+  match "/login" => "users#login"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
