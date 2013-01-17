@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_secure_password
 
   # Associations
+  has_and_belongs_to_many :debates
 
   # Validations
   before_validation { self.debateName.downcase! }

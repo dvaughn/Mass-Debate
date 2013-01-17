@@ -1,10 +1,28 @@
 MassDebate::Application.routes.draw do
 
+  get "debates/create"
+
+  get "debates/join"
+
+  get "debates/start"
+
+  get "debates/end"
+
+  get "debates/upvote"
+
+  get "debates/report"
+
+  get "debates/extend"
+
+  get "debates/invite"
+
   match "/" => "users#index"
   match "/user" => "users#index"
   match "/user/home" => "users#home"
   match "/user/register" => "users#register"
   match "/user/login" => "users#login"
+  match "/user/logout" => "users#logout"
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

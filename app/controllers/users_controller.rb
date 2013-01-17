@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     gender = params[:user][:gender]
 
     #user instance we are trying to register
-    @user = User.new(:debateName => debateName, :email => email, :password => pw, :password_confirmation => pw_confirm, :debateName => debateName, :firstName => firstName, :lastName => lastName,
+    @user = User.new(:debateName => debateName, :email => email, :password => pw, :password_confirmation => pw_confirm, :firstName => firstName, :lastName => lastName,
                      :age => age, :gender => gender, :admin => false, :avgDuration => 0, :numDebates => 0, :upvotes => 0)
 
     #Does the new user pass validations?

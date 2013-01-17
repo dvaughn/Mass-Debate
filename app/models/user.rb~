@@ -3,11 +3,12 @@ class User < ActiveRecord::Base
   attr_accessible :debateName, :password, :password_confirmation, :firstName, :lastName, :email,
                   :age, :gender, :admin, :avgDuration, :numDebates, :upvotes
   has_secure_password
+  has_and_belongs_to_many :debates
 
   # Associations
 
   # Validations
-  before_validation { self.username.downcase! }
+  before_validation { self.debateName.downcase! }
   validates :debateName, :presence => true, :uniqueness => true, :on => :create
   validates :email, :presence => true, :uniqueness => true, :on => :create
   validates :password, :presence => true, :confirmation => true, :length => { :minimum => 6 }, :on => :create
