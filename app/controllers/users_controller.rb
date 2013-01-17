@@ -86,9 +86,7 @@ class UsersController < ApplicationController
   # Modifies: sets site_id and page_id to nil
   # Effects: displays the user's sites through @sites
   def home
-    #uid = session[:user_id]
-    #@user = User.find(uid)
-    @user = User.new#(:debateName => "chums", :email => "penis@penis.com", :password => "1234", :password_confirmation => "1234", :debateName => "chums", :firstName => "chums", :lastName => "alex",
-                     #:age => "12", :gender => 1, :admin => false, :avgDuration => 0, :numDebates => 0, :upvotes => 0)
+    uid = session[:user_id]
+    @user = User.find(uid)
   end
 end

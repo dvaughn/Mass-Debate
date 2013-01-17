@@ -33,5 +33,26 @@
       <h1>Profile</h1>
       <p>Use this document as a way to quick start any new project.<br> All you get is this message and a barebones HTML document.</p>
 
+      <p> This will be the profile page for each user, or their "home" </p>
+
+      <p> 
+        If you look in the user's controller, you will see that for the home action we bascially do nothing except
+        set a variable @user that represents the current user's object. Below is an example of how you call some of the attributes.
+      </p>
+
+      <h2> Welcome, <%= @user.firstName%> </h2>
+      <p> 
+        It is literally just injecting ruby code between the special syntax angle brackets
+        and the percentage signs. Now to finish out the rest of the attributes:
+      </p>
+
+      <h3> Email: <%= @user.email %> </h3>
+      <h3> Debate Name: <%= @user.debateName %> </h3>
+      <h3> Age: <%= @user.age %> </h3>
+      <h3> Gender: <%= @user.gender ? "Male" : "Female" %> </h3>
+      <h3> Avg. Duration of Debate: <%= @user.avgDuration %> </h3>
+      <h3> Number of Debates: <%= @user.numDebates %> </h3>
+      <h3> Upvotes: <%= @user.upvotes %> </h3>
+
     </div> <!-- /container -->
 

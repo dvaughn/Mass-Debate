@@ -1,10 +1,18 @@
 MassDebate::Application.routes.draw do
 
+  match "/" => "users#index"
+<<<<<<< HEAD
   match "/user" => "users#index"
   match "/user/home" => "users#home"
   match "/user/register" => "users#register"
   match "/user/login" => "users#login"
 
+=======
+  match "/home" => "users#home"
+  match "/register" => "users#register"
+  match "/logout" => "users#logout"
+  match "/login" => "users#login"
+>>>>>>> a34ca0b757139becded95df5e45f91ae65593fd7
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
