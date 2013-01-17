@@ -1,6 +1,5 @@
 <h1>Users#index</h1>
-<p>Find me in app/views/users/index.html.erb</p>
-
+<h2>Register:</h2>
 <%= form_for @user, :url => { :action=> "register" }, :html => { :method => "POST" } do |f| %>
 
   <%= f.label "Email:" %>
@@ -25,7 +24,21 @@
   <%= f.text_field :age %>
 
   <%= f.label "Gender:" %>
-  <%= f.select(:city_id, [['Male', 1], ['Female', 0]]) %>
+  <%= f.select(:gender, [['Male', 1], ['Female', 0]]) %>
+
+  <p>
+    <%= f.submit "Register", :class => "btn btn-primary" %>
+  </p>
+<% end %>
+
+<h2>Login:</h2>
+<%= form_for @user, :url => { :action=> "login" }, :html => { :method => "POST" } do |f| %>
+
+  <%= f.label "Email:" %>
+  <%= f.text_field :email %>
+
+  <%= f.label "Password:" %>
+  <%= f.password_field :password %>
 
   <p>
     <%= f.submit "Login", :class => "btn btn-primary" %>
