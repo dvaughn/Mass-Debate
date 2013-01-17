@@ -1,6 +1,8 @@
 MassDebate::Application.routes.draw do
 
+  match "/" => "users#index"
   match "/home" => "users#home"
+  match "/register" => "users#register"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

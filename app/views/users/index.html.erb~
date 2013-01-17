@@ -25,7 +25,7 @@
   <%= f.text_field :age %>
 
   <%= f.label "Gender:" %>
-  <%= f.select(:gender, [['Male', 1], ['Female', 0]]) %>
+  <%= f.select(:city_id, [['Male', 1], ['Female', 0]]) %>
 
   <p>
     <%= f.submit "Login", :class => "btn btn-primary" %>
