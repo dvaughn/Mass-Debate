@@ -4,6 +4,7 @@ class Debate < ActiveRecord::Base
                   :upvote2
 
   # Associations
+  has_and_belongs_to_many :users
 
   # Validations
 
