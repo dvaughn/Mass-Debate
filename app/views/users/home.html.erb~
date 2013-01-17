@@ -1,37 +1,7 @@
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="#">Mass-Debate</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-	      <li><a href="/lobby">Lobby</a></li>
-	      <li class="dropdown">
-	      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-      Settings
-      <b class="caret"></b>
-    </a>
-              <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel">
-		<li><a tabindex="-1" href="#">Privacy Settings</a></li>
-		<li><a tabindex="-1" href="#">Help</a></li>
-		<li><a tabindex="-1" href="#">Logout</a></li>
-		</ul>
-		</li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
-
-    <div class="container">
-
+      <div class="container">
       <h1>Profile</h1>
       <p>Use this document as a way to quick start any new project.<br> All you get is this message and a barebones HTML document.</p>
+<<<<<<< HEAD
 
       <p> This will be the profile page for each user, or their "home" </p>
 
@@ -40,7 +10,7 @@
         set a variable @user that represents the current user's object. Below is an example of how you call some of the attributes.
       </p>
 
-      <h2> Welcome, <%= @user.firstName + " " + @user.lastName %> </h2>
+      <h2> Welcome, <%= @user.firstName%> </h2>
       <p> 
         It is literally just injecting ruby code between the special syntax angle brackets
         and the percentage signs. Now to finish out the rest of the attributes:
@@ -55,4 +25,7 @@
       <h3> Upvotes: <%= @user.upvotes %> </h3>
 
     </div> <!-- /container -->
+=======
+      </div>
+>>>>>>> 008f443df4376203e3704adbb56c274229f79994
 
