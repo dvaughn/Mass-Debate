@@ -1,5 +1,21 @@
 MassDebate::Application.routes.draw do
 
+  get "debates/create"
+
+  get "debates/join"
+
+  get "debates/start"
+
+  get "debates/end"
+
+  get "debates/upvote"
+
+  get "debates/report"
+
+  get "debates/extend"
+
+  get "debates/invite"
+
   match "/" => "users#index"
   match "/user" => "users#index"
   match "/user/home" => "users#home"

@@ -2,7 +2,6 @@ class CreateDebates < ActiveRecord::Migration
   def up
     create_table 'debates' do |t|
       t.string 'topic'
-      t.text 'question'
       t.integer 'duration'
       t.text 'side1'
       t.text 'side2'
