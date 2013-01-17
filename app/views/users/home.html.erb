@@ -1,5 +1,64 @@
-      <div class="container">
-      <h1>Profile</h1>
-      <p>Use this document as a way to quick start any new project.<br> All you get is this message and a barebones HTML document.</p>
+<!DOCTYPE html>
+<html lang="en">
+
+    <div class="container">
+      <div class="content">
+        <div class="page-header">
+          <h2><%=@user.firstName%> <%=@user.lastName%>   <small>(<%=@user.rank%>)</small></h2>
+        </div>
+        <div class="row">
+          <div class="span3">
+            <img src="makesomethingup" height="300" width="300">
+          </div>
+          <div class="span4">
+            <table class="table table-bordered">
+              <tr>
+                <td>Username: <%=@user.debateName%></td>
+              </tr>
+              <tr>
+                <td>Age: <%=@user.age%></td>
+              </tr>
+              <tr>
+                <td>Gender: <%=@user.gender%></td>
+              </tr>
+              <tr>
+                <td>Location: <%=@user.location%></td>
+              </tr>
+              <tr>
+                <td>Upvotes: <%=@user.upvotes%></td>
+              </tr>
+              <tr>
+                <td>Debates: <%=@user.numDebates%></td>
+              </tr>
+              <tr>
+                <td>Favorite Topic: <%=@user.favoriteTopic%></td>
+              </tr>
+              <tr>
+                <td>Average Length: <%=@user.avgDuration%></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="span8">
+            <h4>About <%=@user.firstName%></h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="span8">
+            <%=@user.about%>
+          </div>
+        </div>
+        <div class="row">
+          <div class="span8">
+            <h2>Debate Stats</h2>
+          </div>
+        </div>
       </div>
+
+      <footer>
+        <p>&copy; Mass-Debate 2013</p>
+      </footer>
+    </div> <!-- conatiner -->
+</html>
 
