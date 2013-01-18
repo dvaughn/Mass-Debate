@@ -1,31 +1,66 @@
-      <div class="container">
-      <h1>Profile</h1>
-      <p>Use this document as a way to quick start any new project.<br> All you get is this message and a barebones HTML document.</p>
-<<<<<<< HEAD
+<!DOCTYPE html>
+<html lang="en">
 
-      <p> This will be the profile page for each user, or their "home" </p>
-
-      <p> 
-        If you look in the user's controller, you will see that for the home action we bascially do nothing except
-        set a variable @user that represents the current user's object. Below is an example of how you call some of the attributes.
-      </p>
-
-      <h2> Welcome, <%= @user.firstName%> </h2>
-      <p> 
-        It is literally just injecting ruby code between the special syntax angle brackets
-        and the percentage signs. Now to finish out the rest of the attributes:
-      </p>
-
-      <h3> Email: <%= @user.email %> </h3>
-      <h3> Debate Name: <%= @user.debateName %> </h3>
-      <h3> Age: <%= @user.age %> </h3>
-      <h3> Gender: <%= @user.gender ? "Male" : "Female" %> </h3>
-      <h3> Avg. Duration of Debate: <%= @user.avgDuration %> </h3>
-      <h3> Number of Debates: <%= @user.numDebates %> </h3>
-      <h3> Upvotes: <%= @user.upvotes %> </h3>
-
-    </div> <!-- /container -->
-=======
+    <div class="container">
+      <div class="content">
+        <div class="page-header">
+          <h2><%=@user.firstName%> <%=@user.lastName%>   <small>(<%=@user.rank%>)</small></h2>
+        </div>
+        <div class="row">
+          <div class="span3">
+            <img src="makesomethingup" height="300" width="300">
+          </div>
+          <div class="span4">
+            <table class="table table-bordered">
+              <tr>
+                <td>Username: <%=@user.debateName%></td>
+              </tr>
+              <tr>
+                <td>Age: <%=@user.age%></td>
+              </tr>
+              <tr>
+                <td>Gender: <%=@user.gender%></td>
+              </tr>
+              <tr>
+                <td>Location: <%=@user.location%></td>
+              </tr>
+              <tr>
+                <td>Upvotes: <%=@user.upvotes%></td>
+              </tr>
+              <tr>
+                <td>Debates: <%=@user.numDebates%></td>
+              </tr>
+              <tr>
+                <td>Favorite Topic: <%=@user.favoriteTopic%></td>
+              </tr>
+              <tr>
+                <td>Average Length: <%=@user.avgDuration%></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="span8">
+            <h4>About <%=@user.firstName%></h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="span8">
+            <%=@user.about%>
+          </div>
+        </div>
+        <div class="row">
+          <div class="span8">
+            <h2>Debate History</h2>
+            <!-- This is where the patial will be rendered-->
+          </div>
+        </div>
       </div>
->>>>>>> 008f443df4376203e3704adbb56c274229f79994
+
+
+<footer>
+        <p>&copy; Mass-Debate 2013</p>
+      </footer>
+    </div> <!-- conatiner -->
+</html>
 

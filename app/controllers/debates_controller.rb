@@ -1,4 +1,9 @@
 class DebatesController < ApplicationController
+
+  def index
+    @debates = Debate.all
+  end  
+
   def create
   end
 
@@ -22,4 +27,5 @@ class DebatesController < ApplicationController
 
   def invite
   end
+
 end

@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="page-header">
+    <h1>Edit Topic</h1>
+    <p><b>NOTE:</b> Leave blank the fields you do not want changed.</p>
+    <h2><%= @editTopic.name %></h2>
+    <p><%= @editTopic.description %></p>
+    <%= form_for @editTopic, :url => { :controller => :topics, :action=> :update }, :html => { :class => "login_form", :method => "POST" } do |f| %>
+
+      <%= f.hidden_field :id, :value => topic.id %>
+
+      <%= f.label "Topic Name:" %>
+      <%= f.text_field :name %>
+
+      <%= f.label "Description:" %>
+      <%= f.text_area :description, :size => "50x6" %>
+
+      <p>
+        <%= f.submit "Update", :class => "btn btn-inverse" %>
+      </p>
+    <% end %>
+  </div>
+</div>

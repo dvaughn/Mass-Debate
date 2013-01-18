@@ -10,7 +10,12 @@
 @user2 = User.create(:debateName => "chumbley5", :email => "chumbley@mit.edu", :password => "massdebate", :password_confirmation => "massdebate", :firstName => "Alexander", :lastName => "Chumbley",
                      :age => 20, :gender => true, :admin => false, :avgDuration => 120, :numDebates => 1, :upvotes => 1)
 
+@topic1 = Topic.create(:name => "Gun Control Laws", :description => "Due to the recent connecticut tragedy, much attention has been given to the ever-scrutinized legislation of gun control")
 
-@debate1 = Debate.create(:topic => "Gun Control Laws", :duration => 120, :side1 => "AR-15s should be banned permanently from the U.S.", :side2 => "AR-15s Should be only available to gun collectors who have proven they are not mentally unstable", :debateName1=> "dvaughn64", :debateName2 => "chumbley5", :upvote1 => true, :upvote2 => true, :started => true, :finished => true)
+
+@debate1 = Debate.create(:duration => 120, :side1 => "AR-15s should be banned permanently from the U.S.", :side2 => "AR-15s Should be only available to gun collectors who have proven they are not mentally unstable", :debateName1=> "dvaughn64", :debateName2 => "chumbley5", :upvote1 => true, :upvote2 => true, :started => true, :finished => true)
+
+@topic1.debates << @debate1
+
 @user1.debates << @debate1
 @user2.debates << @debate1

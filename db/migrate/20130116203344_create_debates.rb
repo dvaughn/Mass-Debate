@@ -1,7 +1,6 @@
 class CreateDebates < ActiveRecord::Migration
   def up
     create_table 'debates' do |t|
-      t.string 'topic'
       t.integer 'duration'
       t.text 'side1'
       t.text 'side2'
@@ -11,6 +10,7 @@ class CreateDebates < ActiveRecord::Migration
       t.boolean 'upvote2'
       t.boolean 'started'
       t.boolean 'finished'
+      t.references :topic
     end
   end
 
