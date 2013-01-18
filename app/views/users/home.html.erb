@@ -51,7 +51,8 @@
         </div>
         <div class="row">
           <div class="span8">
-            <h2>Debate Stats</h2>
+            <h2>Debate History</h2>
+            <%=render :partial => "debateStats", :collection => @user.debates %>
           </div>
         </div>
       </div>
