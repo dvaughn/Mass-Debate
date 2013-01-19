@@ -3,7 +3,21 @@
     <div class="homecontainer">
       <div class="home">
         <div class="page-header">
-          <h2><%=@user.firstName%> <%=@user.lastName%>   <small>(<%=@user.rank%>)</small></h2>
+          <div class="row">
+            <div class="span2">
+              <h2>
+                <%=@user.firstName%> <%=@user.lastName%>
+              </h2>
+            </div>
+            <div class= "span2">
+              <h2>
+                <small>(<%=@user.rank%>)</small>
+              </h2>
+            </div>
+            <div class="span2 offset1">
+              <a href="#editProfile" role="button" class="btn" data-toggle="modal"><i class="icon-pencil"></i></a>
+            </div>
+          </div>
         </div>
         <div class="row">
           <div class="span3">
@@ -55,8 +69,30 @@
           </div>
         </div>
       </div>
-
-
+      <div id="editProfile" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="RegisterLabel"
+       aria-hidden="true">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+          <h3 id="EditProfileLabel">Edit Your Profile </h3>
+        </div>
+        <div class="modal-body"> 
+          <p>
+            <%= form_for @user, :url => { :action=> "editProfile" }, :html => { :method => "POST" } do |f| %>
+              <%= f.text_field :email, :placeholder => "Email" %>
+              <%= f.password_field :password, :placeholder => "Password" %>
+              <%= f.password_field :password_confirmation, :placeholder => "Re-Type Password" %>
+              <%= f.text_field :debateName, :placeholder => "Debate Name" %>
+              <%= f.text_field :firstName, :placeholder => "First Name" %>
+              <%= f.text_field :lastName, :placeholder => "Last Name" %>
+              <%= f.text_field :age, :placeholder => "Age" %>
+              <%= f.select(:gender, [['Male', 1], ['Female', 0]]) %>
+              <p>
+                <%= f.submit "Confirm", :class => "btn btn-primary" %>
+              </p>
+            <%end%>
+          </p>
+        </div>
+      </div>
 <footer>
         <p>&copy; Mass-Debate 2013</p>
       </footer>
