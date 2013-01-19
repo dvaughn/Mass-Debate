@@ -1,7 +1,9 @@
 class TopicsController < ApplicationController
   def index
     @topic = Topic.new
+    @topic2 = Topic.new
     @topics = Topic.all
+    @debate = Debate.new
   end
 
   def create
@@ -29,8 +31,9 @@ class TopicsController < ApplicationController
 
 
   def delete
-    @deleteTopic = Topic.find(params[:topic][:name])
+    @deleteTopic = Topic.find(params[:topic][:id])
     @deleteTopic.destroy
+    redirect_to :action => :index
   end
 
 end

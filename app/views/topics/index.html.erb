@@ -11,6 +11,8 @@
         <th>Topic</th>
         <th>Description</th>
         <th></th>
+        <th></th>
+        <th></th>
       </tr>
  
       <% @topics.each do |topic| %>
@@ -18,12 +20,45 @@
       <tr>
         <td><%= topic.name %></td>
         <td><%= topic.description %></td>
+
+        <td>
+          <button class="btn btn-warning" type="button" data-toggle="modal" data-target="#newDebateModal<%=topic.id%>">Debate!</button> 
+          <div class="modal hide fade" id="newDebateModal<%=topic.id%>">
+
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h3>Begin a Debate!</h3>
+            </div>
+
+            <div class="modal-body">
+              
+              <%= form_for @debate, :url => "/debates/create/"+topic.id.to_s, :html => { :method => "POST" } do |f| %>
+                <%= f.label "Enter your side/argument for the debate:" %>
+                <%= f.text_field :side1 %>
+                <p>
+                  <%= f.submit "Begin!", :class => "btn btn-success" %>
+                </p>
+              <% end %>
+
+            </div>
+          </div>
+        </td>
+
         <td>
           <%= form_for topic, :url => { :controller => :topics, :action=> :edit }, :html => { :class => "login_form", :method => "POST" } do |f| %>
             <%= f.hidden_field :id, :value => topic.id %>
             <%= f.submit "Edit", :class => "btn btn-inverse" %>
           <% end %>
         </td>
+
+        <td>
+          <%= form_for topic, :url => { :controller => :topics, :action=> :delete }, :html => { :class => "login_form", :method => "POST" } do |f| %>
+            <%= f.hidden_field :id, :value => topic.id %>
+            <%= f.submit "Delete", :class => "btn btn-danger" %>
+          <% end %>
+        </td>
+
+
       </tr>
 
       <% end %>
