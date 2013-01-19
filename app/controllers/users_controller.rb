@@ -35,7 +35,13 @@ class UsersController < ApplicationController
     end
   end
 
-
+  # Requires: Appropriate parameters for User object
+  # Modifies: The User table by changing parameters of an existing user
+  # Effects:  Edits the User object and redirects to the user home page
+  #           or returns appropriate validation errors
+  def editProfile
+    @user = User.new
+  end
 
   # Requires: The User object has to already exist
   # Modifies: On successful authentication, the user_id is added to the session
@@ -84,10 +90,18 @@ class UsersController < ApplicationController
 
   # Requires: a logged in user
   # Modifies: sets site_id and page_id to nil
-  # Effects: displays the user's sites through @sites
+  # Effects: displays the logged in user's sites through @sites
   def home
     uid = session[:user_id]
     @user = User.find(uid)
-    flash[:login_error] = "Penis"
   end
+
+# Requires: a logged in user
+  # Modifies: sets site_id and page_id to nil
+  # Effects: displays a user's sites through @sites
+  def profile
+    debateName = params[:debateName]
+    @user = User.find_by_debateName(debateName)
+  end
+
 end
