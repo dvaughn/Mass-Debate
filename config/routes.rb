@@ -6,6 +6,8 @@ MassDebate::Application.routes.draw do
   match "/user/register" => "users#register"
   match "/user/login" => "users#login"
   match "/user/logout" => "users#logout"
+  match "/user/help" => "users#help"
+  match "/user/privacySettings" => "users#privacySettings"
 
   match "/topics/index" => "topics#index"
   match "/topics/edit" => "topics#edit"
