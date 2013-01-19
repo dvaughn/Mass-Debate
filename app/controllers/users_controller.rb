@@ -47,7 +47,7 @@ class UsersController < ApplicationController
     #Variable setting
     email = params[:user][:email]
     pw = params[:user][:password]
-
+    flash[:login_error]= "penis"
     #user instance we are trying to validate
     @user = User.find_by_email(email)
 
@@ -88,5 +88,6 @@ class UsersController < ApplicationController
   def home
     uid = session[:user_id]
     @user = User.find(uid)
+    flash[:login_error] = "Penis"
   end
 end

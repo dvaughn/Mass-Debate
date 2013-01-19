@@ -1,2 +1,33 @@
 <h1>Users#register</h1>
-<p>Find me in app/views/users/register.html.erb</p>
+
+<h2>Register:</h2>
+<%= form_for @user, :url => { :action=> "register" }, :html => { :method => "POST" } do |f| %>
+
+  <%= f.label "Email:" %>
+  <%= f.text_field :email %>
+
+  <%= f.label "Password:" %>
+  <%= f.password_field :password %>
+
+  <%= f.label "Confirm Password:" %>
+  <%= f.password_field :password_confirmation %>
+
+  <%= f.label "Debate Name:" %>
+  <%= f.text_field :debateName %>
+
+  <%= f.label "First Name:" %>
+  <%= f.text_field :firstName %>
+
+  <%= f.label "Last Name:" %>
+  <%= f.text_field :lastName %>
+
+  <%= f.label "Age:" %>
+  <%= f.text_field :age %>
+
+  <%= f.label "Gender:" %>
+  <%= f.select(:gender, [['Male', 1], ['Female', 0]]) %>
+
+  <p>
+    <%= f.submit "Register", :class => "btn btn-primary" %>
+  </p>
+<% end %>

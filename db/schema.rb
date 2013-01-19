@@ -14,6 +14,7 @@
 ActiveRecord::Schema.define(:version => 20130118203130) do
 
   create_table "debates", :force => true do |t|
+    t.string  "topic"
     t.integer "duration"
     t.text    "side1"
     t.text    "side2"
@@ -23,7 +24,6 @@ ActiveRecord::Schema.define(:version => 20130118203130) do
     t.boolean "upvote2"
     t.boolean "started"
     t.boolean "finished"
-    t.integer "topic_id"
   end
 
   create_table "debates_users", :force => true do |t|

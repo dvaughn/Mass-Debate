@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-
-    <div class="container">
-      <div class="content">
+    <div class="homecontainer">
+      <div class="home">
         <div class="page-header">
           <h2><%=@user.firstName%> <%=@user.lastName%>   <small>(<%=@user.rank%>)</small></h2>
         </div>
@@ -44,7 +43,7 @@
             <h4>About <%=@user.firstName%></h4>
           </div>
         </div>
-        <div class="row">
+        <div class="row" >
           <div class="span8">
             <%=@user.about%>
           </div>
@@ -52,7 +51,7 @@
         <div class="row">
           <div class="span8">
             <h2>Debate History</h2>
-            <!-- This is where the patial will be rendered-->
+            <%=render :partial => "debateStats", :collection => @user.debates %>
           </div>
         </div>
       </div>
@@ -62,5 +61,5 @@
         <p>&copy; Mass-Debate 2013</p>
       </footer>
     </div> <!-- conatiner -->
-</html>
+  </html>
 
