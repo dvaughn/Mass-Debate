@@ -15,7 +15,7 @@
     <% @debates.each do |debate| %>
 
     <tr>
-      <td><%= debate.topic_id %></td>
+      <td><%= Topic.find(debate.topic_id).name %></td>
       <td><%= debate.question %></td>
       <td><%= debate.side1 %></td>
       <td><%= debate.debateName1 %></td>
