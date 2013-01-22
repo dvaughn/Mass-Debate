@@ -1,23 +1,17 @@
 <div class="row">
-  <div class="span8">
+  <div class="span11">
     <div class = "navbar">
       <div class="navbar-inner">
-      <ul class="nav">
-        <li><a><%=debateStats.topic%></a></li>
-        <li><a>vs <%=debateStats.debateName2%></a></li>
-        <li><a><%=debateStats.side1%></a></li>
-        <li><a><i class="icon-star-empty" display="none"></i></a></li>
-      </ul>
+        <ul class="nav">
+          <li><a><%=Topic.find(debateStats.topic_id).name%></a></li>
+          <li><a><%=debateStats.question%></a></li>
+          <li><a>vs <%=debateStats.debateName2%></a></li>
+          <li><a><%=debateStats.side1%></a></li>
+          <% if debateStats.upvote1 %>
+            <li><a><i class="icon-star-empty"></i></a></li>
+          <%end %>
+        </ul>
+      </div>
     </div>
-    <script>
-      var star = document.getElementByClass("icon-star-empty");
-      if (<%=debateStats.upvote1%>) {
-        star.style.display="none";
-        star.innerHTML="Shit";
-      } else {
-        star.style.display="none";
-      }
-    </script>
-  </div>
   </div>
 </div>

@@ -4,7 +4,7 @@
       <div class="home">
         <div class="page-header">
           <div class="row">
-            <div class="span2">
+            <div class="span4">
               <h2>
                 <%=@user.firstName%> <%=@user.lastName%>
               </h2>
@@ -63,9 +63,9 @@
           </div>
         </div>
         <div class="row">
-          <div class="span8">
+          <div class="span12">
             <h2>Debate History</h2>
-            <%=render :partial => "debateStats", :collection => @user.debates %>
+            <%=render :partial => "debateStats", :collection => @user.debates.where(:finished => true) %>
           </div>
         </div>
       </div>
