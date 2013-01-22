@@ -7,9 +7,9 @@ class DebatesController < ApplicationController
 
   def create
     @user1 = User.find(session[:user_id])
-    @debate = Debate.create(:side1 => params[:debate][:side1], :debateName1 => @user1.debateName, :started => false, :finished => false)
+    @debate = Debate.create(:side1 => params[:debate][:side1], :question => params[:debate][:question], :debateName1 => @user1.debateName, :started => false, :finished => false)
     @debate.topic_id = params[:debate][:topic_id]
-    @topic = Topics.find(params[:debate][:topic_id])
+    @topic = Topic.find(params[:debate][:topic_id])
     @topic.debates << @debate
     @user1.debates << @debate
     redirect_to :controller => :users, :action => :home
