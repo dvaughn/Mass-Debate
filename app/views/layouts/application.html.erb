@@ -55,8 +55,18 @@
     <div class="modal-body"> 
       <%@newdebate = Debate.new%>
       <%= form_for @newdebate, :url => { :controller => :debates, :action=> :create }, :html => { :method => "POST" } do |f| %>
-        <%= f.label "Topic Name: " %>
-        <%= f.text_field :topic_id %>
+        <%= f.label "Topic:" %>
+        <%= f.select(:topic_id,
+                     [['Politics', 1],
+                     ['Religion', 2],
+                     ['Sports', 3],
+                     ['Current Events', 4],
+                     ['Technology', 5],
+                     ['Philosophy', 6],
+                     ['Entertainment', 7],
+                     ['Misc', 8]]) %>
+        <%= f.label "Question: " %>
+        <%= f.text_field :question %>
         <%= f.label "Side: " %>
         <%= f.text_field :side1 %>
         <p>
