@@ -40,7 +40,13 @@ class UsersController < ApplicationController
   # Effects:  Edits the User object and redirects to the user home page
   #           or returns appropriate validation errors
   def editProfile
-    @user = User.new
+    user = User.find(session[:user_id])
+    user.firstName = params[:user][:firstName]
+    user.lastName = params[:user][:lastName]
+    user.age = params[:user][:age]
+    user.about = params[:user][:about]
+    user.save
+    redirect_to :controller => :users, :action => :home
   end
 
   # Requires: The User object has to already exist
