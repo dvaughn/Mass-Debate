@@ -6,6 +6,10 @@ MassDebate::Application.routes.draw do
   match "/user/register" => "users#register"
   match "/user/login" => "users#login"
   match "/user/logout" => "users#logout"
+  match "/user/profile/:debateName" => "users#profile"
+  match "user/editProfile" => "users#editProfile"
+  match "user/help" => "users#help"
+  match "user/privacySettings" => "users#privacySettings"
 
   match "/topics/index" => "topics#index"
   match "/topics/edit" => "topics#edit"
@@ -13,10 +17,13 @@ MassDebate::Application.routes.draw do
   match "/topics/create" => "topics#create"
   match "/topics/delete" => "topics#delete"
 
-  match "/debates/create/:id" => "debates#create"
+  match "/debates/index" => "debates#index"
+  match "/debates/create" => "debates#create"
   match "/debates/join" => "debates#join"
+  match "/debates/start/:id" => "debates#start"
+  match "/debates/home/:id" => "debates#home"
 
-  # The priority is based upon order of creation:
+# The priority is based upon order of creation:
   # first created -> highest priority.
 
   # Sample of regular route:

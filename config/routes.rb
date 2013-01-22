@@ -20,6 +20,8 @@ MassDebate::Application.routes.draw do
   match "/debates/index" => "debates#index"
   match "/debates/create" => "debates#create"
   match "/debates/join" => "debates#join"
+  match "/debates/start/:id" => "debates#start"
+  match "/debates/home/:id" => "debates#home"
 
 # The priority is based upon order of creation:
   # first created -> highest priority.
