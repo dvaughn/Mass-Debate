@@ -53,9 +53,16 @@
       <h3 id="createDebateLabel">Create</h3>
     </div>
     <div class="modal-body"> 
-      <p>
-        Form for creating a debate goes here
-      </p>
+      <%@newdebate = Debate.new%>
+      <%= form_for @newdebate, :url => { :controller => :debates, :action=> :create }, :html => { :method => "POST" } do |f| %>
+        <%= f.label "Topic Name: " %>
+        <%= f.text_field :topic_id %>
+        <%= f.label "Side: " %>
+        <%= f.text_field :side1 %>
+        <p>
+          <%= f.submit "Create", :class => "btn btn-primary" %>
+        </p>
+      <% end %>
     </div>
   </div>
 <%= yield %>

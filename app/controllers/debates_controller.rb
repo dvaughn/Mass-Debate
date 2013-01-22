@@ -11,6 +11,7 @@ class DebatesController < ApplicationController
     @debate = Debate.create(:side1 => params[:debate][:side1], :debateName1 => @user1.debateName, :started => false, :finished => false)
     @topic.debates << @debate
     @user1.debates << @debate
+    redirect_to :controller => :users, :action => :home
   end
 
   def join
