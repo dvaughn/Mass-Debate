@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(:version => 20130118203130) do
 
   create_table "debates", :force => true do |t|
-    t.integer "question"
+    t.text    "question"
     t.integer "duration"
     t.text    "side1"
     t.text    "side2"

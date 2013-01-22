@@ -10,7 +10,14 @@
 @user2 = User.create(:debateName => "chumbley5", :email => "chumbley@mit.edu", :password => "massdebate", :password_confirmation => "massdebate", :firstName => "Alexander", :lastName => "Chumbley",
                      :age => 20, :gender => true, :admin => false, :avgDuration => 120, :numDebates => 1, :upvotes => 1)
 
-@topic1 = Topic.create(:name => "Gun Control Laws", :description => "Due to the recent connecticut tragedy, much attention has been given to the ever-scrutinized legislation of gun control")
+@topic1 = Topic.create(:name => "Politics", :description => "The cause for modern debates as we know them, Politics is the largest topic")
+@topic2 = Topic.create(:name => "Religion", :description => "Due to the recent connecticut tragedy, much attention has been given to the ever-scrutinized legislation of gun control")
+@topic3 = Topic.create(:name => "Sports", :description => "Due to the recent connecticut tragedy, much attention has been given to the ever-scrutinized legislation of gun control")
+@topic4 = Topic.create(:name => "Current Events", :description => "Due to the recent connecticut tragedy, much attention has been given to the ever-scrutinized legislation of gun control")
+@topic5 = Topic.create(:name => "Technology", :description => "Due to the recent connecticut tragedy, much attention has been given to the ever-scrutinized legislation of gun control")
+@topic6 = Topic.create(:name => "Philosophy", :description => "Due to the recent connecticut tragedy, much attention has been given to the ever-scrutinized legislation of gun control")
+@topic7 = Topic.create(:name => "Entertainment", :description => "Due to the recent connecticut tragedy, much attention has been given to the ever-scrutinized legislation of gun control")
+@topic8 = Topic.create(:name => "Other", :description => "Due to the recent connecticut tragedy, much attention has been given to the ever-scrutinized legislation of gun control")
 
 
 @debate1 = Debate.create(:duration => 120, :side1 => "AR-15s should be banned permanently from the U.S.", :side2 => "AR-15s Should be only available to gun collectors who have proven they are not mentally unstable", :debateName1=> "dvaughn64", :debateName2 => "chumbley5", :upvote1 => true, :upvote2 => true, :started => true, :finished => true)
