@@ -32,7 +32,11 @@
                 <td>Age: <%=@user.age%></td>
               </tr>
               <tr>
-                <td>Gender: <%=@user.gender%></td>
+                <% if @user.gender %>
+                  <td>Gender: male</td>
+                <%else%>
+                  <td>Gender: female</td>
+                <%end %>
               </tr>
               <tr>
                 <td>Location: <%=@user.location%></td>
@@ -81,9 +85,8 @@
               <%= f.text_field :firstName, :placeholder => "First Name" %>
               <%= f.text_field :lastName, :placeholder => "Last Name" %>
               <%= f.text_field :age, :placeholder => "Age" %>
-              <p>
-                <%= f.text_field :about, :placeholder => "About", :rows => "3" %>
-              </p>
+              <%= f.text_field :location, :placeholder => "Location" %>
+              <%= f.text_field :about, :placeholder => "About", :rows => "3" %>
               <p>
                 <%= f.submit "Confirm", :class => "btn-custom1" %>
               </p>
