@@ -9,13 +9,24 @@ body { padding-top: 60px; }
 //Nav Bar Nigga
   #navbar1 {
     color:#D00000;
-    background:#D00000
   }
 
   #Logo {
     color:gray
   }
   #Logo:hover {
+    color:#D00000
+  }
+
+  #dropdown1:hover {
+    background:gray
+  }
+
+  #settings {
+    color:#D00000
+  }
+
+  #settings:hover {
     color:#D00000
   }
 
@@ -102,7 +113,7 @@ body { padding-top: 60px; }
 
   //Misc
   footer {
-    color:#B00000
+    color:black
   }
 
   //Containers
