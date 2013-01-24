@@ -1,2 +1,24 @@
-<h1>Debates#create</h1>
-<p>Find me in app/views/debates/create.html.erb</p>
+<h1>Debate Waiting Page</h1>
+<h2> <%= @debate.question %> </h2>
+<script>
+Poll.start({
+  name: "check_debate",
+  interval: 3000,
+  action: function(){
+    $.ajax({
+      url: "/debates/start/<%=@debate.id%>",
+      dataType: "text",
+      success: function(data) {
+        if (data==="true") {
+          window.focus();
+          window.location = "/debates/home/<%=@debate.id%>";
+          Poll.stop("check_debate");
+        }
+        else {
+          //Do Nothing
+        }
+      }
+    }); // Your ajax here
+  }
+});
+</script>
