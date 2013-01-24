@@ -1,0 +1,28 @@
+<h1>Welcome to the Debate Room</h1>
+<h2><%= @debate.debateName1 %> vs <%= @debate.debateName2 %></h2>
+<h3><%= @debate.side1 %> vs <%= @debate.side2 %></h3>
+<input id="debateTime"></input>
+<script>
+  var msec = 0;
+  var sec = 0;
+  var minu = 0;
+
+  $(window).load(startwatch());
+
+  function startwatch() {
+    var debateTime = document.getElementById("debateTime");
+    debateTime.value = minu.toString() + " : " + sec.toString() + " : " + msec.toString()
+    go = setTimeout("startwatch()", 1000);
+    msec += 3;
+    if (msec == 1000)
+    {
+      msec = 0;
+      sec++;
+    }
+    if (sec == 60) {
+      sec = 0;
+      minu++;
+    }
+  }
+  startwatch()
+</script>
