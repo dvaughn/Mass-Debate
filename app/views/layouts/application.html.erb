@@ -8,15 +8,15 @@
 </head>
 <body>
   <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="row navbar-inner">
+    <div id="navbar1" class="row navbar-inner">
       <div class="container">
-        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <a  class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </a>
         <div class="span2">
-          <a class="brand" href="/user/home">Mass-Debate</a>
+          <a id="Logo" class="brand" href="/user/home">Mass-Debate</a>
         </div>
         <div class="nav-collapse collapse">
           <ul class="nav pull-right">
@@ -70,7 +70,7 @@
         <%= f.label "Side: " %>
         <%= f.text_field :side1 %>
         <p>
-          <%= f.submit "Create", :class => "btn btn-primary" %>
+          <%= f.submit "Create", :class => "btn-custom1" %>
         </p>
       <% end %>
     </div>
