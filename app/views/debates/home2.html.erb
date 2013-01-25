@@ -67,6 +67,7 @@ $(window).ready(startdebate());
 function startdebate() {
   window.retrieved1 = false;
   window.retrieved3 = false;
+  window.finished = false;
   var debateinterval = window.setInterval(function () {
 
     var debateTime1 = document.getElementById("debateTime1");
@@ -88,16 +89,16 @@ function startdebate() {
             dataType: "text",
             data: "id=<%=@debate.id%>&select=1",
             success: function(data) {
-              //do something
               window.retrieved1 = true;
               $("#debater1-response1").val(data)
               $("#statement2text").removeAttr("readonly")
-              startwatch(debateTime2);
-              return false;
+              Poll.stop("retrieve_statement1")
             }
           });
         }
       });
+
+      startwatch(debateTime2);
     }
     else if (debateTime2.value === "Done" && debateTime3.value === "-") {
       $("#statement2form").submit();
@@ -116,23 +117,21 @@ function startdebate() {
             dataType: "text",
             data: "id=<%=@debate.id%>&select=3",
             success: function(data) {
-              //do something
               window.retrieved3 = true;
               $("#debater1-response2").val(data)
               $("#statement4text").removeAttr("readonly")
-              startwatch(debateTime4);
-              return false;
+              Poll.stop("retrieve_statement3")
             }
           });
         }
       });
+
+      startwatch(debateTime4);
     }
-    else if (debateTime4.value === "Done") {
+    else if (debateTime4.value === "Done" && !window.finished) {
       $("#statement4form").submit();
       $("#statement4text").attr("readonly", "readonly");
-    }
-    else if (debateTime4.value === "Done") {
-
+      window.finished = true;
     }
     else {}
 
