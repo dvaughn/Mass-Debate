@@ -1,37 +1,28 @@
 <div class="row" onclick="location.href='profile/<%=user.debateName%>'">
-  <div class="span3">
+  <div class="span2">
     <%= image_tag user.photo.url %>
   </div>
-  <div class="span4">
-    <table class="table table-bordered">
-      <tr>
-        <td>Username: <%=user.debateName%></td>
-      </tr>
-      <tr>
-        <td>Age: <%=user.age%></td>
-      </tr>
-      <tr>
-        <% if user.gender %>
-          <td>Gender: male</td>
-        <%else%>
-          <td>Gender: female</td>
-        <%end %>
-      </tr>
-      <tr>
-        <td>Location: <%=user.location%></td>
-      </tr>
-      <tr>
-        <td>Upvotes: <%=user.upvotes%></td>
-      </tr>
-      <tr>
-        <td>Debates: <%=user.numDebates%></td>
-      </tr>
-      <tr>
-        <td>Favorite Topic: <%=user.favoriteTopic%></td>
-      </tr>
-      <tr>
-        <td>Average Length: <%=user.avgDuration%></td>
-      </tr>
-    </table>
+  <div class="span6">
+    <h3>
+      <%=user.firstName%> <%=user.lastName%><span>   (<%=user.debateName%>)</span>
+    </h3>
+    <h5>
+      <i class="icon-user"></i>  <%=user.debateRank%>
+    </h5>
+    <h5>
+      <i class="icon-globe"></i>  <%=user.location%>
+    </h5>
+    <h5>
+      <i class="icon-comment"></i>  <%=user.numDebates%>
+    </h5>
+    <h5>
+      <i class="icon-star"></i>  <%=user.upvotes%>
+    </h5>
   </div>
+  <%if user.id == session[:user_id]%>
+  <%else%>
+    <div class="span2">
+      <a href="friend?user=<%=user.debateName%>" role="button" class="btn">Friend</i></a>
+    </div>
+  <%end%>
 </div>
