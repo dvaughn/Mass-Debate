@@ -94,14 +94,14 @@ function startdebate() {
             dataType: "text",
             data: "id=<%=@debate.id%>&select=2",
             success: function(data) {
-              //do something
               window.retrieved2 = true;
               $("#debater2-response1").val(data)
-              return false;
+              Poll.stop("retrieve_statement2")
             }
           });
         }
       });
+
     }
     else if (debateTime3.value === "-" && debateTime2.value === "Done" && window.retrieved2) {
       $("#statement3text").removeAttr('readonly')
@@ -123,10 +123,9 @@ function startdebate() {
             dataType: "text",
             data: "id=<%=@debate.id%>&select=4",
             success: function(data) {
-              //do something
-              window.retrieved4 = true;
-              $("#debater2-response2").val(data)
-              return false;
+            window.retrieved4 = true;
+            $("#debater2-response2").val(data)
+            Poll.stop("retrieve_statement4")
             }
           });
         }
