@@ -10,6 +10,7 @@ MassDebate::Application.routes.draw do
   match "user/editProfile" => "users#editProfile"
   match "user/help" => "users#help"
   match "user/privacySettings" => "users#privacySettings"
+  match "user/search" => "users#search"
 
   match "/topics/index" => "topics#index"
   match "/topics/edit" => "topics#edit"
@@ -22,6 +23,7 @@ MassDebate::Application.routes.draw do
   match "/debates/join" => "debates#join"
   match "/debates/start/:id" => "debates#start"
   match "/debates/home/:id" => "debates#home"
+  match "/debates/update" => "debates#update"
 
 # The priority is based upon order of creation:
   # first created -> highest priority.

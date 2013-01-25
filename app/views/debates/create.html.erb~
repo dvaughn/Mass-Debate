@@ -3,7 +3,7 @@
 <script>
 Poll.start({
   name: "check_debate",
-  interval: 500,
+  interval: 3000,
   action: function(){
     $.ajax({
       url: "/debates/start/<%=@debate.id%>",

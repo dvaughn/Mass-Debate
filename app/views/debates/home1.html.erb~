@@ -43,13 +43,6 @@
     </div>
   </div>
 
-
-
-  <div id="OpponentArea">
-    <textarea id="debater2-response1" style="display:none">Enter your opening argument here</textarea>
-    <textarea id="debater2-response2" style="display:none">Enter your rebuttle here</textarea>
-  </div>
-
 </div>
 
 
@@ -91,8 +84,24 @@ function startdebate() {
       startwatch(debateTime2);
     }
     else if (debateTime2.value === "Done" && !window.retrieved2) {
-      //This is where the AJAX call to get statement2 will go
-      window.retrieved2 = true;
+      Poll.start({
+        name: "retrieve_statement2",
+        interval: 500,
+        action: function(){
+          $.ajax({
+            url: "/debates/retrieve",
+            type : "POST",
+            dataType: "text",
+            data: "id=<%=@debate.id%>&select=2",
+            success: function(data) {
+              //do something
+              window.retrieved2 = true;
+              $("#debater2-response1").val(data)
+              return false;
+            }
+          });
+        }
+      });
     }
     else if (debateTime3.value === "-" && debateTime2.value === "Done" && window.retrieved2) {
       $("#statement3text").removeAttr('readonly')
@@ -104,8 +113,24 @@ function startdebate() {
       startwatch(debateTime4);
     }
     else if (debateTime4.value === "Done" && !window.retrieved4) {
-      //This is where the AJAX call to get statment3 will go
-      wundow.retrieved4 = true
+      Poll.start({
+        name: "retrieve_statement4",
+        interval: 500,
+        action: function(){
+          $.ajax({
+            url: "/debates/retrieve",
+            type : "POST",
+            dataType: "text",
+            data: "id=<%=@debate.id%>&select=4",
+            success: function(data) {
+              //do something
+              window.retrieved4 = true;
+              $("#debater2-response2").val(data)
+              return false;
+            }
+          });
+        }
+      });
     }
     else {}
 

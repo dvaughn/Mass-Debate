@@ -78,6 +78,50 @@ class DebatesController < ApplicationController
     end
   end
 
+  def retrieve
+    @debate = Debate.find(params[:id])
+    case params[:select]
+    when "1"
+      if @debate.statement1
+        render :text => @debate.statement1
+      else
+        render :status => 404
+      end
+    when "2"
+      if @debate.statement2
+        render :text => @debate.statement2
+      else
+        render :status => 404
+      end
+    when "3"
+      if @debate.statement3
+        render :text => @debate.statement3
+      else
+        render :status => 404
+      end
+    when "4"
+      if @debate.statement4
+        render :text => @debate.statement4
+      else
+        render :status => 404
+      end
+    when "5"
+      if @debate.statement5
+        render :text => @debate.statement5
+      else
+        render :status => 404
+      end
+    when "6"
+      if @debate.statement6
+        render :text => @debate.statement6
+      else
+        render :status => 404
+      end
+    else
+      render :status => 404
+    end
+  end
+
   def end
   end
 

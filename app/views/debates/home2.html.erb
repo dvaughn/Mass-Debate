@@ -78,10 +78,26 @@ function startdebate() {
       startwatch(debateTime1);
     }
     else if (debateTime1.value === "Done" && debateTime2.value === "-" && !window.retrieved1) {
-      //This is where the AJAX call to get statement1 will go
-      window.retrieved1 = true;
-      startwatch(debateTime2);
-      $("#statement2text").removeAttr("readonly")
+      Poll.start({
+        name: "retrieve_statement1",
+        interval: 500,
+        action: function(){
+          $.ajax({
+            url: "/debates/retrieve",
+            type : "POST",
+            dataType: "text",
+            data: "id=<%=@debate.id%>&select=1",
+            success: function(data) {
+              //do something
+              window.retrieved1 = true;
+              $("#debater1-response1").val(data)
+              $("#statement2text").removeAttr("readonly")
+              startwatch(debateTime2);
+              return false;
+            }
+          });
+        }
+      });
     }
     else if (debateTime2.value === "Done" && debateTime3.value === "-") {
       $("#statement2form").submit();
@@ -90,9 +106,26 @@ function startdebate() {
     }
     else if (debateTime3.value === "Done" && debateTime4.value === "-" && !window.retrieved3) {
       //This is where the AJAX call to get statement3 will go
-      window.retrieved3 = true;
-      startwatch(debateTime4);
-      $("#statement4text").removeAttr('readonly')
+      Poll.start({
+        name: "retrieve_statement3",
+        interval: 500,
+        action: function(){
+          $.ajax({
+            url: "/debates/retrieve",
+            type : "POST",
+            dataType: "text",
+            data: "id=<%=@debate.id%>&select=3",
+            success: function(data) {
+              //do something
+              window.retrieved3 = true;
+              $("#debater1-response2").val(data)
+              $("#statement4text").removeAttr("readonly")
+              startwatch(debateTime4);
+              return false;
+            }
+          });
+        }
+      });
     }
     else if (debateTime4.value === "Done") {
       $("#statement4form").submit();
