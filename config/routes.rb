@@ -10,6 +10,7 @@ MassDebate::Application.routes.draw do
   match "user/editProfile" => "users#editProfile"
   match "user/help" => "users#help"
   match "user/privacySettings" => "users#privacySettings"
+  match "user/search" => "users#search"
 
   match "/topics/index" => "topics#index"
   match "/topics/edit" => "topics#edit"
