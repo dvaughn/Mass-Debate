@@ -17,6 +17,8 @@ class CreateDebates < ActiveRecord::Migration
       t.text 'statement4'
       t.text 'statement5'
       t.text 'statement6'
+      t.boolean 'extend1'
+      t.boolean 'extend2'
       t.references :topic
     end
   end
