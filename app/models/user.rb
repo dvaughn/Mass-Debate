@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   # Accessible Attributes
   attr_accessible :debateName, :password, :password_confirmation, :firstName, :lastName, :email,
-                  :age, :gender, :admin, :avgDuration, :numDebates, :upvotes
+                  :age, :gender, :admin, :avgDuration, :numDebates, :upvotes, :debateRank
   has_secure_password
 
   # Associations

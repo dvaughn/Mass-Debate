@@ -16,6 +16,7 @@ class CreateUsers < ActiveRecord::Migration
       t.integer 'avgDuration'
       t.integer 'numDebates'
       t.integer 'upvotes'
+      t.string 'debateRank'
       # Still need password digest/confirmation (bcrypt)
       # Still need picture plugin
       # Still need references
