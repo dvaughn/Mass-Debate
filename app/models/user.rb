@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
                   :age, :gender, :admin, :avgDuration, :numDebates, :upvotes, :debateRank
   has_secure_password
 
+  has_attached_file :photo
+
   # Associations
   has_and_belongs_to_many :debates
 
@@ -13,6 +15,6 @@ class User < ActiveRecord::Base
   validates :email, :presence => true, :uniqueness => true, :on => :create
   validates :password, :presence => true, :confirmation => true, :length => { :minimum => 6 }, :on => :create
   validates :password_confirmation, :presence => true, :on => :create
-
+  
   # Model Methods
 end

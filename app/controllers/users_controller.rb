@@ -53,6 +53,7 @@ class UsersController < ApplicationController
     user.age = params[:user][:age]
     user.about = params[:user][:about]
     user.location = params[:user][:location]
+    user.photo = params[:user][:photo]
     user.save
     redirect_to :controller => :users, :action => :home
   end

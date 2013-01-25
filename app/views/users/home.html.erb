@@ -21,7 +21,7 @@
         </div>
         <div class="row">
           <div class="span3">
-            <img src="makesomethingup" height="300" width="300">
+            <%= image_tag @user.photo.url %>
           </div>
           <div class="span4">
             <table class="table table-bordered">
@@ -49,7 +49,7 @@
               </tr>
               <tr>
                 <td>Favorite Topic: <%=@user.favoriteTopic%></td>
-              </tr>
+              </tr@user.file_field :photo>
               <tr>
                 <td>Average Length: <%=@user.avgDuration%></td>
               </tr>
@@ -81,12 +81,13 @@
         </div>
         <div class="modal-body"> 
           <p>
-            <%= form_for @user, :url => { :action=> "editProfile" }, :html => { :method => "POST" } do |f| %>
+            <%= form_for @user, :url => { :action=> "editProfile" }, :html => { :multipart => true } do |f| %>
               <%= f.text_field :firstName, :placeholder => "First Name" %>
               <%= f.text_field :lastName, :placeholder => "Last Name" %>
               <%= f.text_field :age, :placeholder => "Age" %>
               <%= f.text_field :location, :placeholder => "Location" %>
               <%= f.text_field :about, :placeholder => "About", :rows => "3" %>
+              <%= f.file_field :photo %>
               <p>
                 <%= f.submit "Confirm", :class => "btn-custom1" %>
               </p>
