@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130118203130) do
+ActiveRecord::Schema.define(:version => 20130125030143) do
 
   create_table "debates", :force => true do |t|
     t.text    "question"
@@ -44,22 +44,26 @@ ActiveRecord::Schema.define(:version => 20130118203130) do
   end
 
   create_table "users", :force => true do |t|
-    t.string  "debateName"
-    t.string  "firstName"
-    t.string  "lastName"
-    t.string  "email"
-    t.string  "password_digest"
-    t.integer "age"
-    t.boolean "gender"
-    t.string  "location"
-    t.string  "rank"
-    t.string  "favoriteTopic"
-    t.text    "about"
-    t.boolean "admin"
-    t.integer "avgDuration"
-    t.integer "numDebates"
-    t.integer "upvotes"
-    t.string  "debateRank"
+    t.string   "debateName"
+    t.string   "firstName"
+    t.string   "lastName"
+    t.string   "email"
+    t.string   "password_digest"
+    t.integer  "age"
+    t.boolean  "gender"
+    t.string   "location"
+    t.string   "rank"
+    t.string   "favoriteTopic"
+    t.text     "about"
+    t.boolean  "admin"
+    t.integer  "avgDuration"
+    t.integer  "numDebates"
+    t.integer  "upvotes"
+    t.string   "debateRank"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
 end

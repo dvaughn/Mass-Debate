@@ -17,4 +17,24 @@ class User < ActiveRecord::Base
   validates :password_confirmation, :presence => true, :on => :create
   
   # Model Methods
+
+  def updateDebateRank
+    user = User.find(session[:user_id])
+    computeDebateRank = 2*user.upvotes + user.numDebates
+    if computeDebateRank < 5
+      user.debateRank = "rookie"
+    elsif computeDebateRank < 10
+      user.debateRank = "High School Debate Team"
+    elsif computeDebateRank < 25
+      user.debateRank = "Sophist"
+    elsif computedebateRank < 50
+      user.debateRank = "Pundit"
+    elsif computeDebateRank < 100 
+      user.debateRank = "Lawyer"
+    else
+      user.debateRank = "Master Debater"
+    user.save
+    end
+  end
+
 end

@@ -34,6 +34,7 @@ class UsersController < ApplicationController
     if @user.valid?
       @user.save
       session[:user_id] = @user.id
+      redirect_to :controller => :users, :action => :debateRank and return
       redirect_to :controller => :users, :action => :home
     else
       flash[:register_error] = @user.errors
