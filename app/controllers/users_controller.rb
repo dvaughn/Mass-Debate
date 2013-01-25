@@ -4,7 +4,10 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  # Requires: Appropriate parameters for User object
+  def search
+  end
+
+# Requires: Appropriate parameters for User object
   # Modifies: The User table by, potentially, adding a new user
   # Effects: creates a new User object and redirects to the user home page
   #          or returns appropriate validation errors
@@ -18,10 +21,11 @@ class UsersController < ApplicationController
     lastName = params[:user][:lastName]
     age = params[:user][:age]
     gender = params[:user][:gender]
+    location = params[:user][:location]
+    about = params[:user][:about]
 
     #user instance we are trying to register
-    @user = User.new(:debateName => debateName, :email => email, :password => pw, :password_confirmation => pw_confirm, :firstName => firstName, :lastName => lastName,
-                     :age => age, :gender => gender, :admin => false, :avgDuration => 0, :numDebates => 0, :upvotes => 0)
+    @user = User.new(:debateName => debateName, :email => email, :password => pw, :password_confirmation => pw_confirm, :firstName => firstName, :lastName => lastName, :age => age, :gender => gender, :location => location, :about => about, :admin => false, :avgDuration => 0, :numDebates => 0, :upvotes => 0)
 
     #Does the new user pass validations?
     if @user.valid?
@@ -45,6 +49,7 @@ class UsersController < ApplicationController
     user.lastName = params[:user][:lastName]
     user.age = params[:user][:age]
     user.about = params[:user][:about]
+    user.location = params[:user][:location]
     user.save
     redirect_to :controller => :users, :action => :home
   end

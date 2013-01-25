@@ -18,7 +18,11 @@
                 <td>Age: <%=@user.age%></td>
               </tr>
               <tr>
-                <td>Gender: <%=@user.gender%></td>
+                <% if @user.gender %>
+                  <td>Gender: male</td>
+                <%else%>
+                  <td>Gender: female</td>
+                <%end %>
               </tr>
               <tr>
                 <td>Location: <%=@user.location%></td>

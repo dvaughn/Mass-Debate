@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(:version => 20130118203130) do
     t.integer "avgDuration"
     t.integer "numDebates"
     t.integer "upvotes"
+    t.string  "debateRank"
   end
 
 end

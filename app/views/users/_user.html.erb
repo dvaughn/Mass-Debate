@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="span3">
+    <img src="makesomethingup" height="300" width="300">
+  </div>
+  <div class="span4">
+    <table class="table table-bordered">
+      <tr>
+        <td>Username: <%=user.debateName%></td>
+      </tr>
+      <tr>
+        <td>Age: <%=user.age%></td>
+      </tr>
+      <tr>
+        <% if user.gender %>
+          <td>Gender: male</td>
+        <%else%>
+          <td>Gender: female</td>
+        <%end %>
+      </tr>
+      <tr>
+        <td>Location: <%=user.location%></td>
+      </tr>
+      <tr>
+        <td>Upvotes: <%=user.upvotes%></td>
+      </tr>
+      <tr>
+        <td>Debates: <%=user.numDebates%></td>
+      </tr>
+      <tr>
+        <td>Favorite Topic: <%=user.favoriteTopic%></td>
+      </tr>
+      <tr>
+        <td>Average Length: <%=user.avgDuration%></td>
+      </tr>
+    </table>
+  </div>
+</div>
