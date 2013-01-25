@@ -9,6 +9,8 @@
                      :age => 20, :gender => true, :admin => false, :avgDuration => 120, :numDebates => 1, :upvotes => 1)
 @user2 = User.create(:debateName => "chumbley5", :email => "chumbley@mit.edu", :password => "massdebate", :password_confirmation => "massdebate", :firstName => "Alexander", :lastName => "Chumbley",
                      :age => 20, :gender => true, :admin => false, :avgDuration => 120, :numDebates => 1, :upvotes => 1)
+@user3 = User.create(:debateName => "asaj", :email => "asaj@mit.edu", :password => "massdebate", :password_confirmation => "massdebate", :firstName => "Asa", :lastName => "Oines",
+                     :age => 20, :gender => true, :admin => false, :avgDuration => 120, :numDebates => 1, :upvotes => 1)
 
 @topic1 = Topic.create(:name => "Politics", :description => "The cause for modern debates as we know them, Politics is the largest topic")
 @topic2 = Topic.create(:name => "Religion", :description => "The most controversial topic. Play nice.")

@@ -11,6 +11,12 @@ class CreateDebates < ActiveRecord::Migration
       t.boolean 'upvote2'
       t.boolean 'started'
       t.boolean 'finished'
+      t.text 'statement1'
+      t.text 'statement2'
+      t.text 'statement3'
+      t.text 'statement4'
+      t.text 'statement5'
+      t.text 'statement6'
       t.references :topic
     end
   end

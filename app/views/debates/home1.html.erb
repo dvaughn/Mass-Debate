@@ -1,0 +1,107 @@
+<div class="container">
+  <h1><%= @debate.debateName1 %> vs <%= @debate.debateName2 %></h1>
+  <h2><%= @debate.side1 %> vs <%= @debate.side2 %></h2>
+
+  <div id="Timers" class="row">
+    <div class="span3">
+      <input type="button" class="btn-danger" id="debateTime1" value="-"></input>
+    </div>
+    <div class="span3">
+      <input type="button" class="btn-danger" id="debateTime2" value="-"></input>
+    </div>
+    <div class="span3">
+      <input type="button" class="btn-danger" id="debateTime3" value="-"></input>
+    </div>
+    <div class="span3">
+      <input type="button" class="btn-danger" id="debateTime4" value="-"></input>
+    </div>
+  </div>
+
+  <div id="UserArea" class="row">
+    <div class="span3">
+      <%= form_for @updatedebate, :remote => true, :url => { :action=> "update" }, :html => {:id => "statement1form", :method => "POST" } do |f| %>
+        <%= f.text_area :statement1, :placeholder => "Enter your opening argument here", :id => "statement1text" %>
+        <%= f.hidden_field :id, :value => @debate.id %>
+        <%= f.hidden_field :select, :value => 1 %>
+      <%end%>
+    </div>
+
+    <div class="span3">
+      <textarea id="debater2-response1" readonly>This is where your Opponent's first statement will go</textarea>
+    </div>
+
+    <div class="span3">
+      <%= form_for @updatedebate, :remote => true, :url => { :action=> "update" }, :html => {:id => "statement3form", :method => "POST" } do |f| %>
+        <%= f.text_area :statement1, :placeholder => "Enter your closing argument here", :id => "statement3text", :readonly => :readonly %>
+        <%= f.hidden_field :id, :value => @debate.id %>
+        <%= f.hidden_field :select, :value => 3 %>
+      <%end%>
+    </div>
+
+    <div class="span3">
+      <textarea id="debater2-response2" readonly>This is where your Opponent's final statement will go</textarea>
+    </div>
+  </div>
+
+</div>
+
+
+<script>
+function startwatch(debateTime) {
+  var start = new Date().getTime();
+  elapsed = '0.0';
+  var interval = window.setInterval(function () {
+    var time = new Date().getTime() - start;
+    elapsed = Math.floor(time / 1000);
+    debateTime.value = elapsed;
+    if (elapsed >= 10) {
+      debateTime.value = "Done";
+      clearInterval(interval);
+    }
+  }, 100);
+}
+
+$(window).ready(startdebate());
+
+function startdebate() {
+  window.retrieved2 = false;
+  window.retrieved4 = false;
+  var debateinterval = window.setInterval(function () {
+
+    var debateTime1 = document.getElementById("debateTime1");
+    var debateTime2 = document.getElementById("debateTime2");
+    var debateTime3 = document.getElementById("debateTime3");
+    var debateTime4 = document.getElementById("debateTime4");
+
+    
+
+    if (debateTime1.value === "-") {
+      startwatch(debateTime1);
+    }
+    else if (debateTime2.value === "-" && debateTime1.value === "Done") {
+      $("#statement1form").submit();
+      $("#statement1text").attr("readonly", "readonly");
+      startwatch(debateTime2);
+    }
+    else if (debateTime2.value === "Done" && !window.retrieved2) {
+      //This is where the AJAX call to get statement2 will go
+      window.retrieved2 = true;
+    }
+    else if (debateTime3.value === "-" && debateTime2.value === "Done" && window.retrieved2) {
+      $("#statement3text").removeAttr('readonly')
+      startwatch(debateTime3);
+    }
+    else if (debateTime4.value === "-" && debateTime3.value === "Done") {
+      $("#statement3form").submit();
+      $("#statement3text").attr("readonly", "readonly");
+      startwatch(debateTime4);
+    }
+    else if (debateTime4.value === "Done" && !window.retrieved4) {
+      //This is where the AJAX call to get statment3 will go
+      wundow.retrieved4 = true
+    }
+    else {}
+
+  }, 1000);
+}
+</script>
