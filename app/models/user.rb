@@ -35,5 +35,24 @@ class User < ActiveRecord::Base
     self.save
     end
   end
+  
+  def updateDebateStats(debate=nil)
+    if debate.started and debate.finished
+      if self.debateName == debate.debateName1
+        if debate.upVote1
+          self.numUpVotes += 1
+        end
+      elsif self.debateName == debate.debateName2
+        if debate.upVote2
+          self.numUpVotes += 1
+        end
+      end
+      debateTime = self.numDebates*self.avgDuration
+      debateTime += debate.duration
+      self.numDebates += 1
+      self.avgDuration = debateTime/self.numDebates 
+      self.updateDebateRank
+    end
+  end
 
 end
