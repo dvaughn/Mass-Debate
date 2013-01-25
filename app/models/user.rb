@@ -1,13 +1,14 @@
 class User < ActiveRecord::Base
   # Accessible Attributes
   attr_accessible :debateName, :password, :password_confirmation, :firstName, :lastName, :email,
-                  :age, :gender, :admin, :avgDuration, :numDebates, :upvotes, :debateRank
+                  :age, :gender, :admin, :avgDuration, :numDebates, :upvotes, :debateRank, :friends
   has_secure_password
 
   has_attached_file :photo
 
   # Associations
   has_and_belongs_to_many :debates
+  has_many :friends
 
   # Validations
   before_validation { self.debateName.downcase! }
