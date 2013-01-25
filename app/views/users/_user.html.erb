@@ -18,11 +18,18 @@
     <h5>
       <i class="icon-star"></i>  <%=user.upvotes%>
     </h5>
+    <%me = User.find(session[:user_id])%>
+    <%if me.friends.any?{|friend| friend.friend_id = user.id}%>
+      <h5>
+        <i class="icon-check"></i>  Friends
+      </h5>
+    <%else%>
+      <%if user.id == session[:user_id]%>
+      <%else%>
+        <div class="span2">
+          <a href="friend?user=<%=user.debateName%>" role="button" class="btn">Friend</i></a>
+        </div>
+      <%end%>
+    <%end%>
   </div>
-  <%if user.id == session[:user_id]%>
-  <%else%>
-    <div class="span2">
-      <a href="friend?user=<%=user.debateName%>" role="button" class="btn">Friend</i></a>
-    </div>
-  <%end%>
 </div>
