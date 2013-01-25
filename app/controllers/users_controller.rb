@@ -32,9 +32,12 @@ class UsersController < ApplicationController
 
     #Does the new user pass validations?
     if @user.valid?
+      @user.updateDebateRank
+      f = File.new("public/blank_profile.png")
+      @user.photo = f
+      f.close
       @user.save
       session[:user_id] = @user.id
-      redirect_to :controller => :users, :action => :debateRank and return
       redirect_to :controller => :users, :action => :home
     else
       flash[:register_error] = @user.errors

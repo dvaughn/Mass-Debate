@@ -1,13 +1,14 @@
 class User < ActiveRecord::Base
   # Accessible Attributes
   attr_accessible :debateName, :password, :password_confirmation, :firstName, :lastName, :email,
-                  :age, :gender, :admin, :avgDuration, :numDebates, :upvotes, :debateRank
+                  :age, :gender, :admin, :avgDuration, :numDebates, :upvotes, :debateRank, :friends
   has_secure_password
 
   has_attached_file :photo
 
   # Associations
   has_and_belongs_to_many :debates
+  has_many :friends
 
   # Validations
   before_validation { self.debateName.downcase! }
@@ -19,21 +20,39 @@ class User < ActiveRecord::Base
   # Model Methods
 
   def updateDebateRank
-    user = User.find(session[:user_id])
-    computeDebateRank = 2*user.upvotes + user.numDebates
+    computeDebateRank = 2*self.upvotes + self.numDebates
     if computeDebateRank < 5
-      user.debateRank = "rookie"
+      self.debateRank = "rookie"
     elsif computeDebateRank < 10
-      user.debateRank = "High School Debate Team"
+      self.debateRank = "High School Debate Team"
     elsif computeDebateRank < 25
-      user.debateRank = "Sophist"
+      self.debateRank = "Sophist"
     elsif computedebateRank < 50
-      user.debateRank = "Pundit"
+      self.debateRank = "Pundit"
     elsif computeDebateRank < 100 
-      user.debateRank = "Lawyer"
+      self.debateRank = "Lawyer"
     else
-      user.debateRank = "Master Debater"
-    user.save
+      self.debateRank = "Master Debater"
+    self.save
+    end
+  end
+  
+  def updateDebateStats(debate=nil)
+    if debate.started and debate.finished
+      if self.debateName == debate.debateName1
+        if debate.upVote1
+          self.numUpVotes += 1
+        end
+      elsif self.debateName == debate.debateName2
+        if debate.upVote2
+          self.numUpVotes += 1
+        end
+      end
+      debateTime = self.numDebates*self.avgDuration
+      debateTime += debate.duration
+      self.numDebates += 1
+      self.avgDuration = debateTime/self.numDebates 
+      self.updateDebateRank
     end
   end
 

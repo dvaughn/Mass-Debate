@@ -1,5 +1,9 @@
 MassDebate::Application.routes.draw do
 
+  get "friends/create"
+
+  get "friends/destroy"
+
   match "/" => "users#index"
   match "/user" => "users#index"
   match "/user/home" => "users#home"
