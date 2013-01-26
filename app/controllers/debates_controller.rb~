@@ -132,6 +132,23 @@ class DebatesController < ApplicationController
   end
 
   def extend
+    vote = params[:debate][:extend1]
+    @debate = Debate.find(params[:debate][:id])
+    @user = User.find(session[:user_id])
+    if @user.debateName == @debate.debateName1
+      if vote == "0"
+        @debate.update_attributes(:extend1 => false)
+      else
+        @debate.update_attributes(:extend1 => true)
+      end
+    elsif @user.debateName == @debate.debateName2
+      if vote == "0"
+        @debate.update_attributes(:extend2 => false)
+      else
+        @debate.update_attributes(:extend2 => true)
+      end
+    else
+    end
   end
 
   def invite

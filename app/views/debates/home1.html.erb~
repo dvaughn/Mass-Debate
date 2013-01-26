@@ -3,22 +3,28 @@
   <h2><%= @debate.side1 %> vs <%= @debate.side2 %></h2>
 
   <div id="Timers" class="row">
-    <div class="span3">
+    <div class="span2">
       <input type="button" class="btn-danger" id="debateTime1" value="-"></input>
     </div>
-    <div class="span3">
+    <div class="span2">
       <input type="button" class="btn-danger" id="debateTime2" value="-"></input>
     </div>
-    <div class="span3">
+    <div class="span2">
       <input type="button" class="btn-danger" id="debateTime3" value="-"></input>
     </div>
-    <div class="span3">
+    <div class="span2">
       <input type="button" class="btn-danger" id="debateTime4" value="-"></input>
+    </div>
+    <div class="span2">
+      <input type="button" class="btn-danger" id="debateTime5" value="-"></input>
+    </div>
+    <div class="span2">
+      <input type="button" class="btn-danger" id="debateTime6" value="-"></input>
     </div>
   </div>
 
   <div id="UserArea" class="row">
-    <div class="span3">
+    <div class="span2">
       <%= form_for @updatedebate, :remote => true, :url => { :action=> "update" }, :html => {:id => "statement1form", :method => "POST" } do |f| %>
         <%= f.text_area :statement1, :placeholder => "Enter your opening argument here", :id => "statement1text" %>
         <%= f.hidden_field :id, :value => @debate.id %>
@@ -26,11 +32,11 @@
       <%end%>
     </div>
 
-    <div class="span3">
+    <div class="span2">
       <textarea id="debater2-response1" readonly>This is where your Opponent's first statement will go</textarea>
     </div>
 
-    <div class="span3">
+    <div class="span2">
       <%= form_for @updatedebate, :remote => true, :url => { :action=> "update" }, :html => {:id => "statement3form", :method => "POST" } do |f| %>
         <%= f.text_area :statement1, :placeholder => "Enter your closing argument here", :id => "statement3text", :readonly => :readonly %>
         <%= f.hidden_field :id, :value => @debate.id %>
@@ -38,8 +44,21 @@
       <%end%>
     </div>
 
-    <div class="span3">
+    <div class="span2">
       <textarea id="debater2-response2" readonly>This is where your Opponent's final statement will go</textarea>
+    </div>
+  </div>
+
+    <div class="span2">
+      <%= form_for @updatedebate, :remote => true, :url => { :action=> "update" }, :html => {:id => "statement5form", :method => "POST" } do |f| %>
+        <%= f.text_area :statement1, :placeholder => "Enter your closing argument here", :id => "statement5text", :readonly => :readonly %>
+        <%= f.hidden_field :id, :value => @debate.id %>
+        <%= f.hidden_field :select, :value => 5 %>
+      <%end%>
+    </div>
+
+    <div class="span2">
+      <textarea id="debater2-response3" readonly>This is where your Opponent's final statement will go</textarea>
     </div>
   </div>
 
@@ -66,12 +85,17 @@ $(window).ready(startdebate());
 function startdebate() {
   window.retrieved2 = false;
   window.retrieved4 = false;
+  window.extendresponse = false;
+  window.extended = false;
+
   var debateinterval = window.setInterval(function () {
 
     var debateTime1 = document.getElementById("debateTime1");
     var debateTime2 = document.getElementById("debateTime2");
     var debateTime3 = document.getElementById("debateTime3");
     var debateTime4 = document.getElementById("debateTime4");
+    var debateTime5 = document.getElementById("debateTime5");
+    var debateTime6 = document.getElementById("debateTime6");
 
     
 
@@ -131,8 +155,69 @@ function startdebate() {
         }
       });
     }
+    else if (window.retrieved4 && !window.extendresponse) {
+      $("#extendDebate").modal("show")
+    }
+
+    else if (window.extendresponse) {
+      //Query the server for whehter the debate is being extended or not
+      // Extension: Continue normally
+      Poll.start({
+        name: "retrieve_extension",
+        interval: 500,
+        action: function(){
+          $.ajax({
+            url: "/debates/extend",
+            type : "GET",
+            dataType: "text",
+            success: function(data) {
+              // No extension
+              if (data == "0") {
+                //The debate is over
+              }
+              // Extension
+              else {
+                //Make the statement 5-6 areas visibile and begin the debate timers again
+              }
+              Poll.stop("retrieve_extension")
+            }
+          });
+        }
+      });
+
+
+
+      window.extended = true;
+      // No Extension:
+      window.extended = false;
+    }
     else {}
 
   }, 1000);
 }
+
+$('#myModal').on('hidden', function () {
+  window.extendresponse = true;
+});
+
 </script>
+<div class="modal hide fade" id="extendDebate">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Extend the Debate?</h3>
+  </div>
+
+  <div class="modal-body">
+    
+    <%= form_for @debate, :url => {:action => :extend}, :html => { :method => "POST" } do |f| %>
+      <%= f.hidden_field :id, :value => debate.id %>
+      <%= f.label "Enter your side/argument for the debate:" %>
+      <%= f.check_box :extend1 %>
+      <p>
+        <%= f.submit "Begin!", :class => "btn btn-success" %>
+      </p>
+    <% end %>
+  </div>
+</div>
+
+

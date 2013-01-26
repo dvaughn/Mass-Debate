@@ -29,6 +29,7 @@ MassDebate::Application.routes.draw do
   match "/debates/home/:id" => "debates#home"
   match "/debates/update" => "debates#update"
   match "/debates/retrieve" => "debates#retrieve"
+  match "/debates/extend" => "debates#extend"
 
   match "user/friend" => "friends#create"
 
