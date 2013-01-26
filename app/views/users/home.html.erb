@@ -37,6 +37,7 @@
             </h5>
           </div>
         </div>
+        <a href="#editPicture" role="button" class="btn" data-toggle="modal"><i class="icon-picture"></i></a>
         <p>
         <div class = "row">
         <div class = "span8">
@@ -75,6 +76,22 @@
               <%= f.text_field :age, :placeholder => "Age" %>
               <%= f.text_field :location, :placeholder => "Location" %>
               <%= f.text_field :about, :placeholder => "About", :rows => "3" %>
+              <p>
+                <%= f.submit "Confirm", :class => "btn-custom1" %>
+              </p>
+            <%end%>
+          </p>
+        </div>
+      </div>
+      <div id="editPicture" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="RegisterLabel"
+       aria-hidden="true">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+          <h3 id="EditPictureLabel">Change Your Profile Picture</h3>
+        </div>
+        <div class="modal-body"> 
+          <p>
+            <%= form_for @user, :url => { :action=> "editProfile" }, :html => { :multipart => true } do |f| %>
               <%= f.file_field :photo %>
               <p>
                 <%= f.submit "Confirm", :class => "btn-custom1" %>
