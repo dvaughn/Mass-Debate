@@ -12,6 +12,7 @@ MassDebate::Application.routes.draw do
   match "/user/logout" => "users#logout"
   match "/user/profile/:debateName" => "users#profile"
   match "user/editProfile" => "users#editProfile"
+  match "user/editPicture" => "users#editPicture"
   match "user/help" => "users#help"
   match "user/privacySettings" => "users#privacySettings"
   match "user/search" => "users#search"

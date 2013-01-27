@@ -7,10 +7,7 @@
             <div class="span4">
               <h3>
                 <%=@user.firstName%> <%=@user.lastName%>
-                <span>
-                  (<%=@user.debateName%>)
-                  <a href="#editProfile" role="button" class="btn" data-toggle="modal"><i class="icon-edit"></i></a>
-                </span>
+                (<%=@user.debateName%>)
               </h3>
             </div>
           </div>
@@ -36,8 +33,11 @@
               <i class="icon-time"></i>  <%=@user.avgDuration%> minutes per debate
             </h5>
           </div>
+          <div class="span2">
+            <a href="#editProfile" role="button" class="btn" data-toggle="modal"><i class="icon-edit"></i></a>
+            <a href="#editPicture" role="button" class="btn" data-toggle="modal"><i class="icon-picture"></i></a>
+          </div>
         </div>
-        <a href="#editPicture" role="button" class="btn" data-toggle="modal"><i class="icon-picture"></i></a>
         <p>
         <div class = "row">
         <div class = "span8">
@@ -91,7 +91,7 @@
         </div>
         <div class="modal-body"> 
           <p>
-            <%= form_for @user, :url => { :action=> "editProfile" }, :html => { :multipart => true } do |f| %>
+            <%= form_for @user, :url => { :action=> "editPicture" }, :html => { :multipart => true } do |f| %>
               <%= f.file_field :photo %>
               <p>
                 <%= f.submit "Confirm", :class => "btn-custom1" %>

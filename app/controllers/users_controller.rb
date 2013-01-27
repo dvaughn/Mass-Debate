@@ -57,6 +57,16 @@ class UsersController < ApplicationController
     user.age = params[:user][:age]
     user.about = params[:user][:about]
     user.location = params[:user][:location]
+    user.save
+    redirect_to :controller => :users, :action => :home
+  end
+
+  # Requires: Appropriate parameters for User object
+  # Modifies: The User table by changing parameters of an existing user
+  # Effects:  Edits the User object and redirects to the user home page
+  #           or returns appropriate validation errors
+  def editPicture
+    user = User.find(session[:user_id])
     user.photo = params[:user][:photo]
     user.save
     redirect_to :controller => :users, :action => :home
