@@ -1,0 +1,36 @@
+<%user = User.find(friend.friend_id)%>
+<div class="row" onclick="location.href='profile/<%=user.debateName%>'">
+  <div class="span2">
+    <%= image_tag user.photo.url %>
+  </div>
+  <div class="span6">
+    <h3>
+      <%=user.firstName%> <%=user.lastName%><span>   (<%=user.debateName%>)</span>
+    </h3>
+    <h5>
+      <i class="icon-user"></i>  <%=user.debateRank%>
+    </h5>
+    <h5>
+      <i class="icon-globe"></i>  <%=user.location%>
+    </h5>
+    <h5>
+      <i class="icon-comment"></i>  <%=user.numDebates%>
+    </h5>
+    <h5>
+      <i class="icon-star"></i>  <%=user.upvotes%>
+    </h5>
+    <%me = User.find(session[:user_id])%>
+    <%if me.friends.any?{|friend| friend.friend_id = user.id}%>
+      <h5>
+        <i class="icon-check"></i>  Friends
+      </h5>
+    <%else%>
+      <%if user.id == session[:user_id]%>
+      <%else%>
+        <div class="span2">
+          <a href="friend?user=<%=user.debateName%>" role="button" class="btn">Friend</i></a>
+        </div>
+      <%end%>
+    <%end%>
+  </div>
+</div>

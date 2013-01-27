@@ -55,6 +55,7 @@
               <%=render :partial => "debateStats", :collection => @user.debates.where(:finished => true) %>
             </div>
             <div id="friends" class="tab-pane">
+              <%=render :partial => "friend", :collection => @user.friends %>
             </div>
           </div>
         </div>
