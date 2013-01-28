@@ -3,27 +3,33 @@
   <h2><%= @debate.side1 %> vs <%= @debate.side2 %></h2>
 
   <div id="Timers" class="row">
-    <div class="span3">
+    <div class="span2">
       <input type="button" class="btn-danger" id="debateTime1" value="-"></input>
     </div>
-    <div class="span3">
+    <div class="span2">
       <input type="button" class="btn-danger" id="debateTime2" value="-"></input>
     </div>
-    <div class="span3">
+    <div class="span2">
       <input type="button" class="btn-danger" id="debateTime3" value="-"></input>
     </div>
-    <div class="span3">
+    <div class="span2">
       <input type="button" class="btn-danger" id="debateTime4" value="-"></input>
+    </div>
+    <div class="span2">
+      <input type="button" class="btn-danger" id="debateTime5" value="-"></input>
+    </div>
+    <div class="span2">
+      <input type="button" class="btn-danger" id="debateTime6" value="-"></input>
     </div>
   </div>
 
   <div id="UserArea" class="row">
 
-    <div class="span3">
+    <div class="span2">
       <textarea id="debater1-response1" readonly>This is where your Opponent's first statement will go</textarea>
     </div>
 
-    <div class="span3">
+    <div class="span2">
       <%= form_for @updatedebate, :remote => true, :url => { :action=> "update" }, :html => {:id => "statement2form", :method => "POST" } do |f| %>
         <%= f.text_area :statement1, :placeholder => "Enter your first rebuttle here", :id => "statement2text", :readonly => :readonly %>
         <%= f.hidden_field :id, :value => @debate.id %>
@@ -31,15 +37,27 @@
       <%end%>
     </div>
 
-    <div class="span3">
+    <div class="span2">
       <textarea id="debater1-response2" readonly>This is where your Opponent's final statement will go</textarea>
     </div>
 
-    <div class="span3">
+    <div class="span2">
       <%= form_for @updatedebate, :remote => true, :url => { :action=> "update" }, :html => {:id => "statement4form", :method => "POST" } do |f| %>
         <%= f.text_area :statement1, :placeholder => "Enter your last rebuttle here", :id => "statement4text", :readonly => :readonly %>
         <%= f.hidden_field :id, :value => @debate.id %>
         <%= f.hidden_field :select, :value => 4 %>
+      <%end%>
+    </div>
+
+    <div class="span2">
+      <textarea id="debater1-response3" style="visibility:hidden" readonly>This is where your Opponent's final statement will go</textarea>
+    </div>
+
+    <div class="span2">
+      <%= form_for @updatedebate, :remote => true, :url => { :action=> "update" }, :html => {:id => "statement6form", :method => "POST", :style => "visibility:hidden" } do |f| %>
+        <%= f.text_area :statement1, :placeholder => "Enter your last rebuttle here", :id => "statement6text", :readonly => :readonly %>
+        <%= f.hidden_field :id, :value => @debate.id %>
+        <%= f.hidden_field :select, :value => 6 %>
       <%end%>
     </div>
 
@@ -62,18 +80,31 @@ function startwatch(debateTime) {
   }, 100);
 }
 
+$(document).ready(function(){
+    $('#extendModalButton').click(function(){ 
+      $('#extendDebate').modal('hide');
+      window.extendresponse = true;
+    });
+});
+
 $(window).ready(startdebate());
 
 function startdebate() {
   window.retrieved1 = false;
   window.retrieved3 = false;
+  window.retrieved5 = false;
   window.finished = false;
+  window.extendresponse = false;
+  window.extended = false;
+  window.complete = false;
   var debateinterval = window.setInterval(function () {
 
     var debateTime1 = document.getElementById("debateTime1");
     var debateTime2 = document.getElementById("debateTime2");
     var debateTime3 = document.getElementById("debateTime3");
     var debateTime4 = document.getElementById("debateTime4");
+    var debateTime5 = document.getElementById("debateTime5");
+    var debateTime6 = document.getElementById("debateTime6");
 
     if (debateTime1.value === "-") {
       startwatch(debateTime1);
@@ -92,7 +123,7 @@ function startdebate() {
               window.retrieved1 = true;
               $("#debater1-response1").val(data)
               $("#statement2text").removeAttr("readonly")
-              return false;
+              Poll.stop("retrieve_statement1")
             }
           });
         }
@@ -120,7 +151,7 @@ function startdebate() {
               window.retrieved3 = true;
               $("#debater1-response2").val(data)
               $("#statement4text").removeAttr("readonly")
-              return false;
+              Poll.stop("retrieve_statement3")
             }
           });
         }
@@ -128,13 +159,103 @@ function startdebate() {
 
       startwatch(debateTime4);
     }
+
     else if (debateTime4.value === "Done" && !window.finished) {
       $("#statement4form").submit();
       $("#statement4text").attr("readonly", "readonly");
       window.finished = true;
     }
+
+    else if (!window.extendresponse && window.finished) {
+      $("#extendDebate").modal("show")
+    }
+
+    else if (!window.extended && window.extendresponse) {
+      //Query the server for whether the debate is being extended or not
+      // Extension: Continue normally
+      Poll.start({
+        name: "retrieve_extension",
+        interval: 1000,
+        action: function(){
+          $.ajax({
+            url: "/debates/lengthen",
+            type : "GET",
+            dataType: "text",
+            success: function(data) {
+              if (data == "0") {
+                setTimeout(function () {
+                  window.location = "/debates/end/<%= @debate.id %>";
+                },5000);
+              }
+              // Extension
+              else {
+                //Make the statement 5-6 areas visibile and begin the debate timers again
+                startwatch(debateTime5);
+                $("#statement6form").show();
+                $("#debater1-response3").show();
+                $("#statement6text").removeAttr('readonly')
+                window.extended = true;
+              }
+              Poll.stop("retrieve_extension")
+            }
+          });
+        }
+      });
+    }
+
+    else if (debateTime5.value === "Done" && debateTime6.value === "-" && !window.retrieved5) {
+      Poll.start({
+        name: "retrieve_statement5",
+        interval: 500,
+        action: function(){
+          $.ajax({
+            url: "/debates/retrieve",
+            type : "POST",
+            dataType: "text",
+            data: "id=<%=@debate.id%>&select=5",
+            success: function(data) {
+              window.retrieved5 = true;
+              $("#debater1-response3").val(data)
+              Poll.stop("retrieve_statement5")
+            }
+          });
+        }
+      });
+    }
+
+    else if (debateTime6.value === "Done" && !window.complete) {
+      $("#statement5form").submit();
+      $("#statement5text").attr("readonly", "readonly");
+      window.complete = true;
+    }
+
+    else if (window.finishd) {
+      setTimeout(function () {
+        window.location = "/debates/end/<%= @debate.id %>";
+      },5000);
+    } 
+
     else {}
 
   }, 1000);
 }
+
 </script>
+
+<div class="modal hide fade" id="extendDebate">
+  <div class="modal-header">
+    <h3>Extend the Debate?</h3>
+  </div>
+
+  <div class="modal-body">
+    
+    <%= form_for @debate, :remote => :true, :url => {:action => :extend}, :html => { :method => "POST" } do |f| %>
+      <%= f.hidden_field :id, :value => @debate.id %>
+      <%= f.label "Check the box to extend the debate another 2 minutes." %>
+      <%= f.check_box :extend1 %>
+      <p>
+        <%= f.submit "Proceed", :class => "btn btn-success", :id => "extendModalButton" %>
+      </p>
+    <% end %>
+  </div>
+</div>

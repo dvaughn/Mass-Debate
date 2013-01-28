@@ -132,22 +132,34 @@ class DebatesController < ApplicationController
   end
 
   def extend
-    vote = params[:debate][:extend1]
     @debate = Debate.find(params[:debate][:id])
     @user = User.find(session[:user_id])
+    vote = params[:debate][:extend1]
     if @user.debateName == @debate.debateName1
       if vote == "0"
         @debate.update_attributes(:extend1 => false)
       else
         @debate.update_attributes(:extend1 => true)
       end
+      render :nothing => :true
     elsif @user.debateName == @debate.debateName2
       if vote == "0"
         @debate.update_attributes(:extend2 => false)
       else
         @debate.update_attributes(:extend2 => true)
       end
+      render :nothing => :true
     else
+      #Do nothing
+    end
+  end
+
+  def lengthen
+    @debate = Debate.find(params[:id])
+    if @debate.extend1 && @debate.extend2
+      render :text => "1"
+    else
+      render :text => "0"
     end
   end
 

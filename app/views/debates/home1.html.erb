@@ -50,7 +50,7 @@
   </div>
 
     <div class="span2">
-      <%= form_for @updatedebate, :remote => true, :url => { :action=> "update" }, :html => {:id => "statement5form", :method => "POST" } do |f| %>
+      <%= form_for @updatedebate, :remote => true, :url => { :action=> "update" }, :html => {:id => "statement5form", :method => "POST", :style => "visibility:hidden" } do |f| %>
         <%= f.text_area :statement1, :placeholder => "Enter your closing argument here", :id => "statement5text", :readonly => :readonly %>
         <%= f.hidden_field :id, :value => @debate.id %>
         <%= f.hidden_field :select, :value => 5 %>
@@ -58,7 +58,7 @@
     </div>
 
     <div class="span2">
-      <textarea id="debater2-response3" readonly>This is where your Opponent's final statement will go</textarea>
+      <textarea id="debater2-response3" style="visibility:hidden" readonly>This is where your Opponent's extended statement will go</textarea>
     </div>
   </div>
 
@@ -80,11 +80,19 @@ function startwatch(debateTime) {
   }, 100);
 }
 
+$(document).ready(function(){
+    $('#extendModalButton').click(function(){ 
+      $('#extendDebate').modal('hide');
+      window.extendresponse = true;
+    });
+});
+
 $(window).ready(startdebate());
 
 function startdebate() {
   window.retrieved2 = false;
   window.retrieved4 = false;
+  window.retrieved6 = false;
   window.extendresponse = false;
   window.extended = false;
 
@@ -147,9 +155,9 @@ function startdebate() {
             dataType: "text",
             data: "id=<%=@debate.id%>&select=4",
             success: function(data) {
-            window.retrieved4 = true;
-            $("#debater2-response2").val(data)
-            Poll.stop("retrieve_statement4")
+              window.retrieved4 = true;
+              $("#debater2-response2").val(data)
+              Poll.stop("retrieve_statement4")
             }
           });
         }
@@ -159,62 +167,92 @@ function startdebate() {
       $("#extendDebate").modal("show")
     }
 
-    else if (window.extendresponse) {
+    else if (window.extendresponse && !window.extended) {
       //Query the server for whehter the debate is being extended or not
       // Extension: Continue normally
       Poll.start({
         name: "retrieve_extension",
-        interval: 500,
+        interval: 1000,
         action: function(){
           $.ajax({
-            url: "/debates/extend",
-            type : "GET",
+            url: "/debates/lengthen",
+            type : "POST",
             dataType: "text",
+            data: "id=<%=@debate.id%>",
             success: function(data) {
-              // No extension
               if (data == "0") {
-                //The debate is over
+                setTimeout(function () {
+                  window.location = "/debates/end/<%= @debate.id %>";
+                },5000);
               }
               // Extension
               else {
                 //Make the statement 5-6 areas visibile and begin the debate timers again
+                startwatch(debateTime5);
+                $("#statement5form").show();
+                $("#debater2-response3").show();
+                $("#statement5text").removeAttr('readonly')
+                window.extended = true;
               }
               Poll.stop("retrieve_extension")
             }
           });
         }
       });
-
-
-
-      window.extended = true;
-      // No Extension:
-      window.extended = false;
     }
+    else if (window.extended && debateTime5.value === "Done" && debateTime6.value === "-") {
+      $("#statement5form").submit();
+      $("#statement5text").attr("readonly", "readonly");
+      startwatch(debateTime6);
+    }
+    
+    else if (debateTime6.value == "Done" && !window.retrieved6) {
+      Poll.start({
+        name: "retrieve_statement6",
+        interval: 500,
+        action: function(){
+          $.ajax({
+            url: "/debates/retrieve",
+            type : "POST",
+            dataType: "text",
+            data: "id=<%=@debate.id%>&select=6",
+            success: function(data) {
+              window.retrieved6 = true;
+              $("#debater2-response3").val(data)
+              Poll.stop("retrieve_statement6")
+            }
+          });
+        }
+      });
+    }
+
+    else if (window.retrieved6) {
+      setTimeout(function () {
+        window.location = "/debates/end/<%= @debate.id %>";
+      },5000);
+    }
+
     else {}
 
   }, 1000);
 }
 
-$('#myModal').on('hidden', function () {
-  window.extendresponse = true;
-});
+
 
 </script>
 <div class="modal hide fade" id="extendDebate">
   <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     <h3>Extend the Debate?</h3>
   </div>
 
   <div class="modal-body">
     
-    <%= form_for @debate, :url => {:action => :extend}, :html => { :method => "POST" } do |f| %>
-      <%= f.hidden_field :id, :value => debate.id %>
-      <%= f.label "Enter your side/argument for the debate:" %>
+    <%= form_for @debate, :remote => :true, :url => {:action => :extend}, :html => { :method => "POST" } do |f| %>
+      <%= f.hidden_field :id, :value => @debate.id %>
+      <%= f.label "Check the box to extend the debate another 2 minutes." %>
       <%= f.check_box :extend1 %>
       <p>
-        <%= f.submit "Begin!", :class => "btn btn-success" %>
+        <%= f.submit "Proceed", :class => "btn btn-success", :id => "extendModalButton" %>
       </p>
     <% end %>
   </div>
