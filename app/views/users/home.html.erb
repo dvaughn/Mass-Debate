@@ -39,28 +39,28 @@
           </div>
         </div>
         <p>
-        <div class = "row">
-        <div class = "span8">
-        <div class="tabbable">
-          <ul class="nav nav-tabs">
-            <li><a href="#history" data-toggle="tab">Debate History</a></li>
-            <li><a href="#friends" data-toggle="tab">Friends</a></li>
-            <li><a href="#about" data-toggle="tab">About</a></li>
-          </ul>
-          <div class="tab-content">
-            <div id="about" class="tab-pane">
-              <%=@user.about%>
-            </div>
-            <div id="history" class="tab-pane">
-              <%=render :partial => "debateStats", :collection => @user.debates.where(:finished => true) %>
-            </div>
-            <div id="friends" class="tab-pane">
-              <%=render :partial => "friend", :collection => @user.friends %>
+          <div class = "row">
+            <div class = "span8">
+              <div class="tabbable">
+                <ul class="nav nav-tabs">
+                  <li><a href="#history" data-toggle="tab">Debate History</a></li>
+                  <li><a href="#friends" data-toggle="tab">Friends</a></li>
+                  <li><a href="#about" data-toggle="tab">About <%=@user.firstName%></a></li>
+                </ul>
+                <div class="tab-content">
+                  <div id="about" class="tab-pane">
+                    <%=@user.about%>
+                  </div>
+                  <div id="history" class="tab-pane">
+                    <%=render :partial => "debateStats", :collection => @user.debates.where(:finished => true) %>
+                  </div>
+                  <div id="friends" class="tab-pane">
+                    <%=render :partial => "friend", :collection => @user.friends %>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        </div>
-        </div>
         </p>
       </div>
       <div id="editProfile" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="RegisterLabel"
