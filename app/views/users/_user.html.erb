@@ -30,9 +30,7 @@
     <%else%>
       <%if user.id == session[:user_id]%>
       <%else%>
-        <div class="span2">
-          <a href="friend?user=<%=user.debateName%>" role="button" class="btn">Friend</i></a>
-        </div>
+        <a href="/user/friend?user=<%=user.debateName%>" role="button" class="btn">Friend</i></a>
       <%end%>
     <%end%>
   </div>

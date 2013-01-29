@@ -2,69 +2,116 @@
 <html lang="en">
     <div class="homecontainer">
       <div class="home">
-        <div class="row">
-          <div class="span8">
-            <div class="page-header">
-              <h2><%=@user.firstName%> <%=@user.lastName%>   <small>(<%=@user.rank%>)</small></h2>
+        <div class="page-header">
+          <div class="row">
+            <div class="span4">
+              <h3>
+                <%=@user.firstName%> <%=@user.lastName%>
+                (<%=@user.debateName%>)
+              </h3>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="span3">
-            <%= image_tag @user.photo.url %>
+            <%= image_tag @user.photo.url%>
           </div>
           <div class="span4">
-            <table class="table table-bordered">
-              <tr>
-                <td>Username: <%=@user.debateName%></td>
-              </tr>
-              <tr>
-                <td>Age: <%=@user.age%></td>
-              </tr>
-              <tr>
-                <% if @user.gender %>
-                  <td>Gender: male</td>
-                <%else%>
-                  <td>Gender: female</td>
-                <%end %>
-              </tr>
-              <tr>
-                <td>Location: <%=@user.location%></td>
-              </tr>
-              <tr>
-                <td>Upvotes: <%=@user.upvotes%></td>
-              </tr>
-              <tr>
-                <td>Debates: <%=@user.numDebates%></td>
-              </tr>
-              <tr>
-                <td>Favorite Topic: <%=@user.favoriteTopic%></td>
-              </tr>
-              <tr>
-                <td>Average Length: <%=@user.avgDuration%></td>
-              </tr>
-            </table>
+            <h5>
+              <i class="icon-user"></i>  <%=@user.debateRank%>
+            </h5>
+            <h5>
+              <i class="icon-globe"></i>  Lives in <%=@user.location%>
+            </h5>
+            <h5>
+              <i class="icon-comment"></i>  <%=@user.numDebates%> debates
+            </h5>
+            <h5>
+              <i class="icon-star"></i>  <%=@user.upvotes%> up votes
+            </h5>
+            <h5>
+              <i class="icon-time"></i>  <%=@user.avgDuration%> minutes per debate
+            </h5>
+            <%me = User.find(session[:user_id])%>
+            <%if me.friends.any?{|friend| friend.friend_id = @user.id}%>
+              <h5>
+                <i class="icon-check"></i>  Friends
+              </h5>
+            <%else%>
+              <%if @user.id == session[:user_id]%>
+              <%else%>
+                <a href="/user/friend?user=<%=@user.debateName%>" role="button" class="btn">Friend</i></a>
+              <%end%>
+            <%end%>
+          </div>
+          <div class="span2">
+            <a href="#editProfile" role="button" class="btn" data-toggle="modal"><i class="icon-edit"></i></a>
+            <a href="#editPicture" role="button" class="btn" data-toggle="modal"><i class="icon-picture"></i></a>
           </div>
         </div>
-        <div class="row">
-          <div class="span8">
-            <h4>About <%=@user.firstName%></h4>
+        <p>
+          <div class = "row">
+            <div class = "span8">
+              <div class="tabbable">
+                <ul class="nav nav-tabs">
+                  <li><a href="#history" data-toggle="tab">Debate History</a></li>
+                  <li><a href="#friends" data-toggle="tab">Friends</a></li>
+                  <li><a href="#about" data-toggle="tab">About <%=@user.firstName%></a></li>
+                </ul>
+                <div class="tab-content">
+                  <div id="about" class="tab-pane">
+                    <%=@user.about%>
+                  </div>
+                  <div id="history" class="tab-pane">
+                    <%=render :partial => "debateStats", :collection => @user.debates.where(:finished => true) %>
+                  </div>
+                  <div id="friends" class="tab-pane">
+                    <%=render :partial => "friend", :collection => @user.friends %>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+        </p>
+      </div>
+      <div id="editProfile" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="RegisterLabel"
+       aria-hidden="true">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+          <h3 id="EditProfileLabel">Edit Your Profile </h3>
         </div>
-        <div class="row" >
-          <div class="span8">
-            <%=@user.about%>
-          </div>
-        </div>
-        <div class="row">
-          <div class="span8">
-            <h2>Debate History</h2>
-            <%=render :partial => "debateStats", :collection => @user.debates %>
-          </div>
+        <div class="modal-body"> 
+          <p>
+            <%= form_for @user, :url => { :action=> "editProfile" }, :html => { :multipart => true } do |f| %>
+              <%= f.text_field :firstName, :placeholder => "First Name" %>
+              <%= f.text_field :lastName, :placeholder => "Last Name" %>
+              <%= f.text_field :age, :placeholder => "Age" %>
+              <%= f.text_field :location, :placeholder => "Location" %>
+              <%= f.text_field :about, :placeholder => "About", :rows => "3" %>
+              <p>
+                <%= f.submit "Confirm", :class => "btn-custom1" %>
+              </p>
+            <%end%>
+          </p>
         </div>
       </div>
-
-
+      <div id="editPicture" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="RegisterLabel"
+       aria-hidden="true">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+          <h3 id="EditPictureLabel">Change Your Profile Picture</h3>
+        </div>
+        <div class="modal-body"> 
+          <p>
+            <%= form_for @user, :url => { :action=> "editPicture" }, :html => { :multipart => true } do |f| %>
+              <%= f.file_field :photo %>
+              <p>
+                <%= f.submit "Confirm", :class => "btn-custom1" %>
+              </p>
+            <%end%>
+          </p>
+        </div>
+      </div>
 <footer>
         <p>&copy; Mass-Debate 2013</p>
       </footer>
