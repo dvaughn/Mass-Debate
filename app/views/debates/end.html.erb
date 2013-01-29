@@ -1,2 +1,21 @@
-<h1>Debates#end</h1>
-<p>Find me in app/views/debates/end.html.erb</p>
+<h1>Debate Review</h1>
+<h2><%= @debate.debateName1 %> vs <%= @debate.debateName2 %></h2>
+<h3><%= @debate.side1 %> vs <%= @debate.side2 %></h3>
+
+<%= form_for @upvotedebate, :remote => true, :url => { :action=> "upvote" }, :html => {:id => "statement6form", :method => "POST"} do |f| %>
+  <%= f.hidden_field :id, :value => @debate.id %>
+  <%= f.submit "Upvote Opponent", :class => "btn btn-success", :id => "upvoteOpponentButton" %>
+<%end%>
+
+<script>
+window.upvoted = false;
+$(document).ready(function(){
+    $('#upvoteOpponentButton').click(function(){ 
+      if (!window.upvoted) {
+        $(this).prop("value", "Opponent Upvoted!");
+        this.disabled = true;
+        window.upvoted = true;
+      }
+    });
+});
+</script>

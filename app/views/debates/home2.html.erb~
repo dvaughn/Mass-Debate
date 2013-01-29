@@ -49,12 +49,12 @@
       <%end%>
     </div>
 
-    <div class="span2">
-      <textarea id="debater1-response3" style="visibility:hidden" readonly>This is where your Opponent's final statement will go</textarea>
+    <div class="span2 startHidden">
+      <textarea id="debater1-response3" readonly>This is where your Opponent's final statement will go</textarea>
     </div>
 
-    <div class="span2">
-      <%= form_for @updatedebate, :remote => true, :url => { :action=> "update" }, :html => {:id => "statement6form", :method => "POST", :style => "visibility:hidden" } do |f| %>
+    <div class="span2 startHidden">
+      <%= form_for @updatedebate, :remote => true, :url => { :action=> "update" }, :html => {:id => "statement6form", :method => "POST"} do |f| %>
         <%= f.text_area :statement1, :placeholder => "Enter your last rebuttle here", :id => "statement6text", :readonly => :readonly %>
         <%= f.hidden_field :id, :value => @debate.id %>
         <%= f.hidden_field :select, :value => 6 %>
@@ -85,6 +85,7 @@ $(document).ready(function(){
       $('#extendDebate').modal('hide');
       window.extendresponse = true;
     });
+    $('.startHidden').hide();
 });
 
 $(window).ready(startdebate());
@@ -173,30 +174,31 @@ function startdebate() {
     else if (!window.extended && window.extendresponse) {
       //Query the server for whether the debate is being extended or not
       // Extension: Continue normally
+      window.extended = true;
       Poll.start({
         name: "retrieve_extension",
         interval: 1000,
         action: function(){
           $.ajax({
             url: "/debates/lengthen",
-            type : "GET",
+            type : "POST",
             dataType: "text",
+            data: "id=<%=@debate.id%>",
             success: function(data) {
-              if (data == "0") {
+              if (data === "0") {
                 setTimeout(function () {
                   window.location = "/debates/end/<%= @debate.id %>";
                 },5000);
               }
               // Extension
-              else {
+              else if (data === "1") {
                 //Make the statement 5-6 areas visibile and begin the debate timers again
                 startwatch(debateTime5);
-                $("#statement6form").show();
-                $("#debater1-response3").show();
+                $('.startHidden').show();
                 $("#statement6text").removeAttr('readonly')
-                window.extended = true;
+                Poll.stop("retrieve_extension")
               }
-              Poll.stop("retrieve_extension")
+              else {}
             }
           });
         }
@@ -204,6 +206,7 @@ function startdebate() {
     }
 
     else if (debateTime5.value === "Done" && debateTime6.value === "-" && !window.retrieved5) {
+      window.retrieved5 = true;
       Poll.start({
         name: "retrieve_statement5",
         interval: 500,
@@ -214,8 +217,8 @@ function startdebate() {
             dataType: "text",
             data: "id=<%=@debate.id%>&select=5",
             success: function(data) {
-              window.retrieved5 = true;
               $("#debater1-response3").val(data)
+              startwatch(debateTime6);
               Poll.stop("retrieve_statement5")
             }
           });
@@ -229,7 +232,7 @@ function startdebate() {
       window.complete = true;
     }
 
-    else if (window.finishd) {
+    else if (window.complete) {
       setTimeout(function () {
         window.location = "/debates/end/<%= @debate.id %>";
       },5000);

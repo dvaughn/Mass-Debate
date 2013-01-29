@@ -123,9 +123,24 @@ class DebatesController < ApplicationController
   end
 
   def end
+    @debate = Debate.find(params[:id])
+    @upvotedebate = Debate.new
+    
   end
 
   def upvote
+    @debate = Debate.find(params[:debate][:id])
+    @user = User.find(session[:user_id])
+    if @user.debateName == @debate.debateName1
+      @debate.update_attributes(:upvote2 => true)
+      @upvoteduser = User.find_by_debateName(@debate.debateName2)
+      @upvoteduser.update_attribute(:upvotes, @upvoteduser.upvotes + 1)
+    elsif @user.debateName == @debate.debateName2
+      @debate.update_attributes(:upvote1 => true)
+      @upvoteduser = User.find_by_debateName(@debate.debateName1)
+      @upvoteduser.update_attribute(:upvotes, @upvoteduser.upvotes + 1)
+    else
+    end
   end
 
   def report
@@ -156,10 +171,12 @@ class DebatesController < ApplicationController
 
   def lengthen
     @debate = Debate.find(params[:id])
-    if @debate.extend1 && @debate.extend2
-      render :text => "1"
-    else
+    if @debate.extend1.nil? || @debate.extend2.nil?
+      render :text => "2"
+    elsif !@debate.extend1 || !@debate.extend2
       render :text => "0"
+    else
+      render :text => "1"
     end
   end
 
