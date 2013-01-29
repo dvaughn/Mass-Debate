@@ -1,5 +1,15 @@
-<h1>Debate Waiting Page</h1>
+<center>
+<h1>Please wait for an opponent...</h1>
 <h2> <%= @debate.question %> </h2>
+<center>
+<div class="row">
+  <div class="span4 offset1">
+    <div class="speech-bubble"></div>
+  </div>
+  <div class="span4 offset4">
+    <div class="speech-bubble-rev"></div>
+  </div>
+</div>
 <script>
 Poll.start({
   name: "check_debate",

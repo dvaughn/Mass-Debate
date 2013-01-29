@@ -6,6 +6,57 @@ body { padding-top: 60px; }
     background-color: #606060;
   }
 
+.speech-bubble {
+  position:relative;
+  width:400px;
+  height:150px;
+  margin:50px 0 200px;
+  text-align:center;
+  font:100px/140px Arial, sans-serif;
+  color:transparent #000;
+  background:#C91F2C;
+}
+
+.speech-bubble:before {
+  content:"";
+  position:absolute;
+  bottom:-140px;
+  right:0;
+  border-width:0 0 140px 140px;
+  border-style:solid;
+  border-color:transparent #C91F2C;
+}
+
+.speech-bubble:after {
+  content:"";
+  position:absolute;
+  bottom:-140px;
+  right:85px; 
+  border-width:0 0 140px 55px;
+  border-style:solid;
+  border-color:transparent #606060;
+}
+
+.speech-bubble-rev {
+  position:relative;
+  width:400px;
+  height:150px;
+  margin:50px 0 200px;
+  text-align:center;
+  font:100px/140px Arial, sans-serif;
+  color:transparent #000;
+  background:#C91F2C;
+}
+.speech-bubble-rev:before {
+  content:"";
+  position:absolute;
+  bottom:-140px;
+  left:85;
+  border-width:0 0 140px 140px;
+  border-style:solid;
+  border-color:transparent #C91F2C;
+}
+
 //Nav Bar Nigga
   #navbar1 {
     color:#D00000;
